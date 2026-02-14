@@ -1,3 +1,4 @@
+// Landing page footer; moved under components/Footer (Bahmni-style structure)
 import "./Footer.css";
 import orelse from "../../assets/orelse.png";
 
