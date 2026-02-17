@@ -45,6 +45,8 @@ import PatientDocumentsLayout from "./modules/patient-documents/PatientDocuments
 import PatientDocuments from "./modules/patient-documents/PatientDocuments";
 import AppointmentsLayout from "./modules/appointments/AppointmentsLayout";
 import Appointments from "./modules/appointments/Appointments";
+import BillingLayout from "./modules/billing/BillingLayout";
+import CraterBilling from "./modules/billing/CraterBilling";
 
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
@@ -83,7 +85,13 @@ function App() {
                   >
                     <FeatureCard icon={clinical} title="CLINICAL SERVICE" />
                   </Link>
-                  <FeatureCard icon={billing} title="PAYMENT & BILLING" />
+                  <Link
+                    to="/billing"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    aria-label="Open payment and billing"
+                  >
+                    <FeatureCard icon={billing} title="PAYMENT & BILLING" />
+                  </Link>
                   <FeatureCard icon={analytics} title="ANALYTICS" />
                 </div>
               </main>
@@ -152,6 +160,9 @@ function App() {
           </Route>
           <Route path="/appointments" element={<AppointmentsLayout />}>
             <Route index element={<Appointments />} />
+          </Route>
+          <Route path="/billing" element={<BillingLayout />}>
+            <Route index element={<CraterBilling />} />
           </Route>
         </Route>
       </Routes>

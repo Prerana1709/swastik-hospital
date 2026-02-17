@@ -1,2 +1,2 @@
-// Placeholder for Billing module (Bahmni-style structure). Add routes/pages when needed.
-export {};
+// Billing / Payment module (crater payment integration).
+export { default as BillingLayout } from "./BillingLayout";
