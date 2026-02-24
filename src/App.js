@@ -46,7 +46,7 @@ import PatientDocuments from "./modules/patient-documents/PatientDocuments";
 import AppointmentsLayout from "./modules/appointments/AppointmentsLayout";
 import Appointments from "./modules/appointments/Appointments";
 import BillingLayout from "./modules/billing/BillingLayout";
-import CraterBilling from "./modules/billing/CraterBilling";
+import Billing from "./modules/billing/Billing";
 
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
@@ -58,6 +58,7 @@ import StaffRegistration from "./modules/registration/StaffRegistration";
 import OPDRegistration from "./modules/registration/OPDRegistration";
 import IPDAdmission from "./modules/registration/IPDAdmission";
 
+import AnalyticsPage from "./modules/analytics/AnalyticsPage";
 import clinical from "./assets/clinical.png";
 import billing from "./assets/bills.png";
 import analytics from "./assets/analytics.png";
@@ -92,13 +93,23 @@ function App() {
                   >
                     <FeatureCard icon={billing} title="PAYMENT & BILLING" />
                   </Link>
-                  <FeatureCard icon={analytics} title="ANALYTICS" />
+                  <Link
+                    to="/analytics"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    className="feature-card-link feature-card-link--analytics"
+                    aria-label="Open analytics"
+                  >
+                    <FeatureCard icon={analytics} title="ANALYTICS" />
+                  </Link>
                 </div>
               </main>
               <Footer />
             </>
           }
         />
+
+        {/* Standalone Analytics: dedicated layout, not inside dashboard */}
+        <Route path="/analytics" element={<AnalyticsPage />} />
 
         {/* AUTH: Login only; no registration header/footer */}
         <Route element={<AuthLayout />}>
@@ -162,7 +173,7 @@ function App() {
             <Route index element={<Appointments />} />
           </Route>
           <Route path="/billing" element={<BillingLayout />}>
-            <Route index element={<CraterBilling />} />
+            <Route index element={<Billing />} />
           </Route>
         </Route>
       </Routes>

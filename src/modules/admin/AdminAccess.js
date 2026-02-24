@@ -5,7 +5,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import "../implementer/implementer.css";
 
 const MOCK_SESSIONS = [
-  { id: 1, user: "Dr. Rajesh Kumar", role: "Consultant", ip: "192.168.1.10", lastActive: "2025-02-06 09:15" },
+  { id: 1, user: "Dr. P. M. Chougule", role: "Consultant", ip: "192.168.1.10", lastActive: "2025-02-06 09:15" },
   { id: 2, user: "Priya Nair", role: "Nurse", ip: "192.168.1.25", lastActive: "2025-02-06 09:12" },
   { id: 3, user: "Vikram Singh", role: "Lab Technician", ip: "192.168.1.30", lastActive: "2025-02-06 08:55" },
 ];

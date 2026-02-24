@@ -1,4 +1,4 @@
-/* Billing dashboard: header with logo + Payment & Billing, then content (Crater iframe). */
+/* Billing: header with logo + Payment & Billing, then content. */
 .billing-dashboard {
   min-height: 100vh;
   display: flex;
@@ -87,26 +87,85 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 0;
   min-height: 0;
 }
 
-/* Crater iframe embed (used by CraterBilling.js) */
+/* Crater embedded in same tab (full height below header) */
 .billing-crater-embed {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  flex: 1;
   min-height: 0;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
 }
 
 .billing-crater-iframe {
   flex: 1;
   width: 100%;
-  min-height: 680px;
+  min-height: 600px;
   border: none;
-  border-radius: 0 0 8px 8px;
+  display: block;
+}
+
+.billing-open-wrap {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 480px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e8e8e8;
+}
+
+.billing-open-wrap h2 {
+  color: #2f6f6c;
+  margin: 0 0 0.75rem 0;
+  font-size: 1.35rem;
+}
+
+.billing-open-wrap p {
+  color: #555;
+  margin: 0 0 1rem 0;
+  font-size: 15px;
+}
+
+.billing-open-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #2f6f6c;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.billing-open-link:hover {
+  background: #245a58;
+}
+
+.billing-open-note {
+  margin-top: 1rem;
+  font-size: 13px;
+  color: #666;
+}
+
+.billing-open-note code {
+  background: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.billing-open-trouble {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 13px;
+  color: #2f6f6c;
+  text-decoration: none;
+}
+
+.billing-open-trouble:hover {
+  text-decoration: underline;
 }

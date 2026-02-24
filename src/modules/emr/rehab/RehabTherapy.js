@@ -9,11 +9,13 @@ function RehabTherapy() {
         <div className="form-group">
           <label>Therapy Type *</label>
           <select>
-            <option>Physical Therapy</option>
-            <option>Occupational Therapy</option>
-            <option>Speech Therapy</option>
-            <option>Cardiac Rehab</option>
-            <option>Pulmonary Rehab</option>
+            <option>CBT (Cognitive Behavioral Therapy)</option>
+            <option>Individual Counseling</option>
+            <option>Group Therapy</option>
+            <option>Family Therapy</option>
+            <option>Supportive Psychotherapy</option>
+            <option>Mindfulness-Based</option>
+            <option>Psychoeducation</option>
           </select>
         </div>
         <div className="form-group">

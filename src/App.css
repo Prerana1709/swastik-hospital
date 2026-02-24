@@ -119,3 +119,22 @@ body {
 .card-container {
   animation-delay: 0.2s;
 }
+
+/* Analytics card: theme hover animation */
+.feature-card-link--analytics {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.feature-card-link--analytics:hover {
+  transform: translateY(-6px);
+}
+
+.feature-card-link--analytics:hover .feature-card {
+  border-color: #2f6f6c;
+  box-shadow: 0 12px 28px rgba(47, 111, 108, 0.2);
+}
+
+.feature-card-link--analytics:hover .card-icon {
+  background: #e8f5f4;
+}

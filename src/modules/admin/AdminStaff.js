@@ -5,7 +5,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import "../implementer/implementer.css";
 
 const MOCK_STAFF = [
-  { id: 1, name: "Dr. Rajesh Kumar", role: "Consultant", department: "Cardiology", contact: "9876543210" },
+  { id: 1, name: "Dr. P. M. Chougule", role: "Consultant", department: "Psychiatry", contact: "(0231) 2658835" },
   { id: 2, name: "Dr. Priya Sharma", role: "Resident", department: "General Medicine", contact: "9876543211" },
   { id: 3, name: "Anita Desai", role: "Nurse", department: "Cardiology", contact: "9876543212" },
   { id: 4, name: "Vikram Singh", role: "Lab Technician", department: "Lab", contact: "9876543213" },

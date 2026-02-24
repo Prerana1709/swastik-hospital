@@ -1,7 +1,8 @@
-// Rehab workspace content: renders Assessment, Therapy, or Sessions by activeSection.
+// Rehab workspace: Assessment, Therapy Plan, Sessions, Progress & Relapse.
 import RehabAssessment from "./RehabAssessment";
 import RehabTherapy from "./RehabTherapy";
 import RehabSessions from "./RehabSessions";
+import RehabProgress from "./RehabProgress";
 
 function RehabContainer({
   activeSection,
@@ -25,6 +26,7 @@ function RehabContainer({
     );
   if (activeSection === "therapy") return <RehabTherapy />;
   if (activeSection === "sessions") return <RehabSessions />;
+  if (activeSection === "progress") return <RehabProgress />;
   return null;
 }
 

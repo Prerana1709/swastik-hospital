@@ -1,15 +1,15 @@
-// IPD Admission form only. Uses Clinical.css classes; ward/bed controlled by parent for Transfer Ward.
+// Psychiatric IPD Admission. Ward/bed controlled by parent for Transfer Ward.
 import { FaRegHospital } from "react-icons/fa";
 
 function IPDAdmission({
-  ipdWard = "General Ward",
+  ipdWard = "Psychiatric Ward-A",
   setIpdWard,
   ipdBedNumber = "",
   setIpdBedNumber,
 }) {
   return (
     <div className="ipd-admission">
-      <h3><FaRegHospital /> IPD Admission</h3>
+      <h3><FaRegHospital /> Psychiatric IPD Admission</h3>
       <div className="ipd-form-grid">
         <div className="form-group">
           <label>Admission Date *</label>
@@ -18,10 +18,11 @@ function IPDAdmission({
         <div className="form-group">
           <label>Select Ward *</label>
           <select value={ipdWard} onChange={(e) => setIpdWard(e.target.value)}>
-            <option>General Ward</option>
-            <option>ICU</option>
+            <option>Psychiatric Ward-A</option>
+            <option>Psychiatric Ward-B</option>
+            <option>Crisis Stabilization Unit</option>
+            <option>Detox / Substance Use Ward</option>
             <option>Private Room</option>
-            <option>Semi-Private</option>
           </select>
         </div>
         <div className="form-group">
@@ -35,18 +36,17 @@ function IPDAdmission({
         <div className="form-group">
           <label>Admitting Doctor *</label>
           <select>
-            <option>Dr. Sharma</option>
-            <option>Dr. Mehta</option>
-            <option>Dr. Desai</option>
+            <option>Dr. P. M. Chougule</option>
+            <option>Dr. Nikhil Chougule</option>
           </select>
         </div>
         <div className="form-group full-width">
-          <label>Admission Diagnosis *</label>
-          <textarea placeholder="Primary diagnosis for admission..." rows="3" />
+          <label>Admission Diagnosis (DSM-5 / ICD-10) *</label>
+          <textarea placeholder="e.g. Major Depressive Disorder, Severe with suicidal ideation (F32.2)..." rows="3" />
         </div>
         <div className="form-group full-width">
-          <label>Admission Notes</label>
-          <textarea placeholder="Additional admission notes..." rows="4" />
+          <label>Reason for Admission & Risk Assessment</label>
+          <textarea placeholder="Clinical justification, risk level, safety concerns..." rows="4" />
         </div>
       </div>
     </div>

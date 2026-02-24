@@ -1,4 +1,4 @@
-// Billing / Payment module layout: header with logo + "Payment & Billing", then Crater iframe.
+// Billing / Payment: header with logo + "Payment & Billing", then Crater embedded in iframe (same tab).
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import swastikLogo from "../../assets/swastiklogo.png";

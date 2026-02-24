@@ -360,6 +360,7 @@
 .rehab-assessment,
 .rehab-therapy,
 .rehab-sessions,
+.rehab-progress,
 .prescription-section {
   background: white;
   padding: 25px;
@@ -409,6 +410,135 @@
   gap: 15px;
 }
 
+/* Psychiatric OPD: collapsible sections */
+.psych-consultation .form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.psych-section {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  background: #fafbfc;
+}
+
+.psych-section-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: #f0f9f8;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2f6f6c;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.psych-section-header:hover {
+  background: #e8f5f4;
+}
+
+.psych-section-icon {
+  font-size: 14px;
+}
+
+.psych-section-body {
+  padding: 20px;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+}
+
+.psych-section.collapsed .psych-section-body {
+  display: none;
+}
+
+.psych-consultation .mse-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* Scale scoring */
+.scales-block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.scale-card {
+  background: #f8f9fa;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.scale-card h4 {
+  margin: 0 0 8px 0;
+  color: #2f6f6c;
+  font-size: 16px;
+}
+
+.scale-hint {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.scale-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.scale-row {
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  gap: 12px;
+  align-items: center;
+}
+
+.scale-row label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+}
+
+.scale-row input {
+  padding: 8px;
+  width: 50px;
+  text-align: center;
+}
+
+.scale-summary {
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+  font-size: 14px;
+}
+
+.severity-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.severity-badge.minimal { background: #e8f5e9; color: #2e7d32; }
+.severity-badge.mild { background: #fff3e0; color: #e65100; }
+.severity-badge.moderate { background: #ffe0b2; color: #ef6c00; }
+.severity-badge.mod-severe,
+.severity-badge.severe { background: #ffcdd2; color: #c62828; }
+
+@media (max-width: 768px) {
+  .psych-consultation .mse-grid { grid-template-columns: 1fr; }
+  .scale-row { grid-template-columns: 1fr; }
+}
+
 /* IPD Styles */
 .ipd-form-grid {
   display: grid;
@@ -446,6 +576,32 @@
 .save-progress-btn:hover {
   background: #3a8a87;
 }
+
+.psych-ipd-progress .psych-section {
+  margin-bottom: 16px;
+}
+
+.behavior-log-table {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.behavior-log-table .session-row {
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.risk-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.risk-badge.risk-low { background: #e8f5e9; color: #2e7d32; }
+.risk-badge.risk-moderate { background: #fff3e0; color: #e65100; }
+.risk-badge.risk-high { background: #ffcdd2; color: #c62828; }
 
 /* Rehab Styles */
 .assessment-grid {
@@ -492,6 +648,37 @@
   font-weight: 600;
   color: #444;
   font-size: 14px;
+}
+
+.rehab-sessions .session-row,
+.rehab-sessions .session-row.header {
+  grid-template-columns: 1fr 1fr 0.8fr 1.2fr 0.9fr 0.9fr;
+}
+
+.rehab-section-hint {
+  font-size: 13px;
+  color: #666;
+  margin: -8px 0 12px 0;
+}
+
+.outcome-score {
+  font-weight: 700;
+  color: #2f6f6c;
+}
+
+.rehab-progress .psych-section {
+  margin-bottom: 16px;
+}
+
+.progress-graph-wrap {
+  min-height: 260px;
+  margin-bottom: 8px;
+}
+
+.graph-caption {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
 }
 
 .progress-status {
