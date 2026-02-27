@@ -1,0 +1,42 @@
+.home-about {
+  padding: 4rem 1.5rem;
+  background: #f8fafc;
+}
+
+.home-about__inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.home-about__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 1.5rem;
+  text-align: center;
+}
+
+.home-about__lead {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0d9488;
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.home-about__text {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.7;
+  margin: 0 0 1rem;
+}
+
+.home-about__text:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .home-about__title {
+    font-size: 2rem;
+  }
+}

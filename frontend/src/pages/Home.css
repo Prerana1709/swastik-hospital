@@ -1,0 +1,115 @@
+/* Home page – Swastik Hospital landing. Clean, modern, healthcare theme. */
+.home-page {
+  min-height: 100vh;
+  background: #fff;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #0f172a;
+}
+
+.home-nav {
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.home-nav__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #0d9488;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.home-nav__logo:hover {
+  color: #0f766e;
+}
+
+.home-nav__logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.home-nav__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.home-nav__links li button {
+  background: none;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9375rem;
+  color: #475569;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.home-nav__links li button:hover {
+  color: #0d9488;
+  background: #f0fdfa;
+}
+
+.home-nav__link-portal {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9375rem;
+  color: #475569;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.home-nav__link-portal:hover {
+  color: #0d9488;
+  background: #f0fdfa;
+}
+
+
+.home-nav__btn-login {
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+  background: #0d9488;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.home-nav__btn-login:hover {
+  background: #0f766e;
+}
+
+@media (max-width: 768px) {
+  .home-nav__links {
+    gap: 0;
+  }
+
+  .home-nav__links li button,
+  .home-nav__btn-login {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
