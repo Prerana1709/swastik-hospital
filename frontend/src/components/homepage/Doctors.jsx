@@ -45,11 +45,12 @@ function Doctors() {
                 <h3 className="home-doctors__name">{doctor.name}</h3>
                 <p className="home-doctors__specialty">{doctor.specialty}</p>
                 <Link
-                  to="/patient-portal/appointments"
+                  to={`/patient-portal/appointments?docId=${doctor.id}`}
                   className="home-doctors__booking-link"
                 >
                   Book Appointment <span className="arrow">›</span>
                 </Link>
+
               </div>
             </div>
           ))}

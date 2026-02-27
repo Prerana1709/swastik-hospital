@@ -3,6 +3,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import "./PatientHome.css";
 import logo from "../assets/swastiklogo.png";
+import Doctors from "../components/homepage/Doctors";
 
 const SERVICES = [
   { id: 1, title: "Depression Treatment", description: "Evidence-based care for mood disorders." },
@@ -93,6 +94,9 @@ function PatientHome() {
         </div>
       </section>
 
+      {/* Meet Our Doctors */}
+      <Doctors />
+
       {/* About */}
       <section id="about" className="patient-home-section patient-home-about">
         <div className="patient-home-container">
@@ -133,12 +137,13 @@ function PatientHome() {
           <button
             type="button"
             className="patient-home-cta-btn"
-            onClick={() => navigate("/dashboard")}
+            onClick={() => window.open("/dashboard", "_blank")}
           >
             Access Clinical Portal
           </button>
         </div>
       </section>
+
 
       {/* Footer */}
       <footer className="patient-home-footer">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './PortalStyles.css';
 import drPm from "../assets/dr_pm.png";
 import drNikhil from "../assets/dr_nikhil.png";
@@ -17,11 +17,28 @@ const PortalAppointmentBook = () => {
     });
     const [toast, setToast] = useState('');
 
+    const location = useLocation();
+
     useEffect(() => {
         const savedUser = JSON.parse(localStorage.getItem('portal_user'));
-        if (!savedUser) navigate('/patient-portal/login?redirect=/patient-portal/appointments');
-        else setUser(savedUser);
-    }, [navigate]);
+        if (!savedUser) {
+            const currentPath = location.pathname + location.search;
+            navigate(`/patient-portal/login?redirect=${encodeURIComponent(currentPath)}`);
+        } else {
+            setUser(savedUser);
+            // Check for direct doctor booking from URL
+            const queryParams = new URLSearchParams(location.search);
+            const docId = queryParams.get('docId');
+            if (docId) {
+                const doc = doctors.find(d => d.id === parseInt(docId));
+                if (doc) {
+                    setSelectedDoctor(doc);
+                    setStep(2);
+                }
+            }
+        }
+    }, [navigate, location]);
+
 
 
     const doctors = [
