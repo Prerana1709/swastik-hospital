@@ -1,10 +1,12 @@
 import React from 'react';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import './PatientPortal.css';
+import swastikLogo from '../assets/swastiklogo.png';
 
 const PatientPortal = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const isLoggedIn = !!localStorage.getItem('portal_user');
 
     const isBasePortal = location.pathname === '/patient-portal' || location.pathname === '/patient-portal/';
 
@@ -16,41 +18,74 @@ const PatientPortal = () => {
         'Pay Bills Online'
     ];
 
+    const handleLogout = () => {
+        localStorage.removeItem('portal_user');
+        navigate('/patient-portal');
+    };
+
+    const portalHeader = (
+        <header className="patient-portal-app-header">
+            <div className="header-left">
+                <img src={swastikLogo} alt="Swastik Hospital" className="header-logo" />
+                <div className="header-text">
+                    <h1>Swastik Hospital</h1>
+                    <p className="header-subtitle">Digital Healthcare Management System</p>
+                </div>
+            </div>
+            <div className="header-right">
+                {isLoggedIn ? (
+                    <button type="button" className="logout-btn" onClick={handleLogout}>
+                        Logout
+                    </button>
+                ) : (
+                    <button type="button" className="logout-btn" onClick={() => navigate('/patient-portal/login')}>
+                        Login
+                    </button>
+                )}
+            </div>
+        </header>
+    );
+
+    const portalFooter = (
+        <footer className="patient-portal-app-footer">
+            <div className="footer-content">
+                <p className="copyright">
+                    © {new Date().getFullYear()} Swastik Hospital. All rights reserved. | Developed and managed by ORELSE Private Limited.
+                </p>
+            </div>
+        </footer>
+    );
+
     if (!isBasePortal) {
         return (
-            <div className="patient-portal-page" style={{ alignItems: 'flex-start', paddingTop: '5vh' }}>
-                <div style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                        <button
-                            onClick={() => navigate('/patient-portal')}
-                            style={{ background: 'none', border: 'none', color: '#008080', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}
-                        >
-                            ← Back to Portal Home
-                        </button>
-                        <button
-                            onClick={() => navigate('/')}
-                            style={{ background: 'none', border: 'none', color: '#607d8b', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}
-                        >
-                            🏠 Back to Home
-                        </button>
-                    </div>
+            <div className="patient-portal-page patient-portal-with-header">
+                {portalHeader}
+                <div className="portal-back-bar portal-back-bar-full">
+                    <button type="button" className="portal-back-btn" onClick={() => navigate('/patient-portal')}>
+                        ← Back to Portal Home
+                    </button>
+                    <button type="button" className="portal-back-btn portal-back-home" onClick={() => navigate('/')}>
+                        🏠 Back to Home
+                    </button>
+                </div>
+                <div className="patient-portal-content">
                     <Outlet />
                 </div>
+                {portalFooter}
             </div>
         );
     }
 
     return (
-        <div className="patient-portal-page" style={{ flexDirection: 'column' }}>
-            <div style={{ width: '100%', maxWidth: '1000px', marginBottom: '1rem', display: 'flex', justifyContent: 'flex-start' }}>
-                <button
-                    onClick={() => navigate('/')}
-                    style={{ background: 'none', border: 'none', color: '#008080', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.95rem' }}
-                >
-                    ← Back to Swastik Hospital Home
-                </button>
-            </div>
-            <div className="patient-portal-container">
+        <div className="patient-portal-page patient-portal-with-header" style={{ flexDirection: 'column' }}>
+            {portalHeader}
+            <div className="patient-portal-content">
+                <div className="portal-back-bar">
+                    <button type="button" className="portal-back-btn" onClick={() => navigate('/')}>
+                        ← Back to Swastik Hospital Home
+                    </button>
+                </div>
+                <div className="patient-portal-container">
                 {/* Left Side: Info Panel */}
                 <div className="portal-left-panel">
                     <div className="portal-illustration" aria-hidden="true">
@@ -93,6 +128,8 @@ const PatientPortal = () => {
                     </div>
                 </div>
             </div>
+            </div>
+            {portalFooter}
         </div>
     );
 };
