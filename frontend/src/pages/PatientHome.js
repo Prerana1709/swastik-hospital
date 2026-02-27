@@ -147,8 +147,10 @@ function PatientHome() {
 
       {/* Footer */}
       <footer className="patient-home-footer">
-        <div className="patient-home-container">
-          <p>© Swastik Psychiatric Hospital. All rights reserved.</p>
+        <div className="patient-home-footer-content">
+          <p className="patient-home-footer-copyright">
+            © {new Date().getFullYear()} Swastik Hospital. All rights reserved. | Developed and managed by ORELSE Private Limited.
+          </p>
         </div>
       </footer>
     </div>

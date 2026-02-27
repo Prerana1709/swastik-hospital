@@ -1,29 +1,52 @@
-/* Unified Portal Styles */
+/* Unified Portal Styles - clinical section theme */
 .portal-sub-page {
     max-width: 900px;
     margin: 2rem auto;
     padding: 2rem;
     background: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    font-family: 'Inter', sans-serif;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(47, 111, 111, 0.08);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* In-page header bar: clinical-style (white, padding, teal) */
 .portal-header {
-    border-bottom: 2px solid #f0fdfa;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+    margin: -2rem -2rem 2rem -2rem;
+    padding: 15px 20px;
+    border-radius: 16px 16px 0 0;
 }
 
 .portal-header h2 {
-    color: #00695c;
+    color: #2f6f6f;
     margin: 0;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .portal-header p {
-    color: #607d8b;
-    margin: 0.5rem 0 0;
+    color: #666;
+    margin: 0.35rem 0 0;
+    font-size: 0.95rem;
+}
+
+/* Portal footer: clinical-style (light grey, center, small font, top border) */
+.portal-footer {
+    background: #f5f7fa;
+    border-top: 1px solid #e0e0e0;
+    padding: 16px 20px;
+    margin: 2rem -2rem -2rem -2rem;
+    border-radius: 0 0 16px 16px;
+    text-align: center;
+}
+
+.portal-footer .footer-content,
+.portal-footer .copyright {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
 }
 
 /* Form Styles */
@@ -60,8 +83,9 @@
 }
 
 .portal-form-group input:focus {
-    border-color: #008080;
+    border-color: #2f6f6f;
     outline: none;
+    box-shadow: 0 0 0 3px rgba(47, 111, 111, 0.1);
 }
 
 .portal-btn-row {
@@ -81,16 +105,17 @@
 }
 
 .portal-stat-card {
-    background: #f0fdf9;
+    background: #f4f8fb;
     padding: 1.5rem;
-    border-radius: 15px;
-    border: 1px solid #b2dfdb;
+    border-radius: 16px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(47, 111, 111, 0.06);
     text-align: center;
 }
 
 .portal-stat-card h3 {
     font-size: 2rem;
-    color: #00796b;
+    color: #2f6f6f;
     margin: 0;
 }
 
@@ -176,6 +201,23 @@
     }
 }
 
+@media (max-width: 768px) {
+    .portal-header {
+        margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+        padding: 12px 15px;
+    }
+
+    .portal-footer {
+        margin: 1.5rem -1.5rem -1.5rem -1.5rem;
+        padding: 12px 15px;
+    }
+
+    .portal-footer .copyright,
+    .portal-footer .footer-content {
+        font-size: 12px;
+    }
+}
+
 @media (max-width: 600px) {
     .portal-form {
         grid-template-columns: 1fr;
@@ -243,18 +285,19 @@
 }
 
 .portal-btn-book {
-    background: #008080;
+    background: #2f6f6f;
     color: white;
     border: none;
     padding: 0.6rem 1.5rem;
-    border-radius: 20px;
+    border-radius: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
 }
 
 .portal-btn-book:hover {
-    background: #006666;
+    background: #256363;
+    box-shadow: 0 4px 12px rgba(47, 111, 111, 0.25);
 }
 
 /* Calendar & Form Layout */
@@ -303,7 +346,7 @@
 }
 
 .calendar-day.active {
-    background: #008080;
+    background: #2f6f6f;
     color: white;
     font-weight: 700;
 }
