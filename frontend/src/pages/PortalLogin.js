@@ -6,6 +6,7 @@ const PortalLogin = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [loginId, setLoginId] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const queryParams = new URLSearchParams(location.search);
@@ -13,16 +14,21 @@ const PortalLogin = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
+        setError('');
         const patients = JSON.parse(localStorage.getItem('swastik_patients') || '[]');
 
         const user = patients.find(p => p.patientId === loginId || p.email === loginId);
 
-        if (user) {
-            localStorage.setItem('portal_user', JSON.stringify(user));
-            navigate(redirectPath);
-        } else {
+        if (!user) {
             setError('Invalid Patient ID or Email. Please try again or Register.');
+            return;
         }
+        if (user.password != null && user.password !== '' && user.password !== password) {
+            setError('Invalid password. Please try again.');
+            return;
+        }
+        localStorage.setItem('portal_user', JSON.stringify(user));
+        navigate(redirectPath);
     };
 
 
@@ -42,6 +48,18 @@ const PortalLogin = () => {
                         placeholder="SWA-2026-XXXX or email@example.com"
                         value={loginId}
                         onChange={(e) => setLoginId(e.target.value)}
+                    />
+                </div>
+
+                <div className="portal-form-group" style={{ marginBottom: '1.5rem' }}>
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        required
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        autoComplete="current-password"
                     />
                 </div>
 

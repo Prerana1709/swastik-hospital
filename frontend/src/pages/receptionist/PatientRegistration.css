@@ -1,0 +1,166 @@
+.recep-reg {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #e2e8e6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.recep-reg-header {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.recep-reg-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a5f5c;
+  margin: 0;
+}
+
+.recep-reg-uhid {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.recep-reg-stepper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8e6;
+}
+
+.recep-reg-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.recep-reg-step.active {
+  color: #1a5f5c;
+  font-weight: 600;
+}
+
+.recep-reg-step.done {
+  color: #2f6f6c;
+}
+
+.recep-reg-step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e2e8e6;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recep-reg-step.active .recep-reg-step-num {
+  background: #2f6f6c;
+  color: #fff;
+}
+
+.recep-reg-step.done .recep-reg-step-num {
+  background: #a7f3d0;
+  color: #065f46;
+}
+
+.recep-reg-form {
+  margin: 0;
+}
+
+.recep-reg-step-content h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 0 0 20px;
+}
+
+.recep-reg-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 20px;
+}
+
+.recep-reg-field.full {
+  grid-column: 1 / -1;
+}
+
+.recep-reg-field label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+.recep-reg-field input,
+.recep-reg-field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.recep-reg-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.recep-reg-check input {
+  width: auto;
+}
+
+.recep-reg-risk {
+  padding: 12px 16px;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  color: #92400e;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.recep-reg-actions {
+  margin-top: 28px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.recep-reg-summary .recep-reg-paper {
+  padding: 20px;
+  background: #f8faf9;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8e6;
+}
+
+.recep-reg-paper p {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.recep-print-btn {
+  margin-right: 12px;
+}
+
+@media (max-width: 600px) {
+  .recep-reg-grid {
+    grid-template-columns: 1fr;
+  }
+}

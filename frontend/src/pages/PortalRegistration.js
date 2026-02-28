@@ -8,6 +8,7 @@ const PortalRegistration = () => {
         patientName: '',
         email: '',
         phone: '',
+        password: '',
         dob: '',
         gender: '',
         address: '',
@@ -89,6 +90,18 @@ const PortalRegistration = () => {
                         placeholder="Phone number"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    />
+                </div>
+
+                <div className="portal-form-group">
+                    <label>Password *</label>
+                    <input
+                        type="password"
+                        required
+                        placeholder="Choose a password"
+                        value={formData.password}
+                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                        autoComplete="new-password"
                     />
                 </div>
 

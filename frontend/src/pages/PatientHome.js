@@ -1,5 +1,5 @@
 // Patient Home Page – public landing for Swastik Psychiatric Hospital.
-// Redirects to /dashboard (Clinical) via "Access Clinical Portal" / "Patient Login".
+// "Hospital Login" goes to /login; "Access Patient Portal" goes to /patient-portal.
 import { useNavigate, Link } from "react-router-dom";
 import "./PatientHome.css";
 import logo from "../assets/swastiklogo.png";
@@ -39,9 +39,9 @@ function PatientHome() {
               <button
                 type="button"
                 className="patient-home-btn-login"
-                onClick={() => navigate("/dashboard")}
+                onClick={() => navigate("/login")}
               >
-                Patient Login
+                Hospital Login
               </button>
             </li>
           </ul>

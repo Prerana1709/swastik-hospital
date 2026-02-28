@@ -1,0 +1,96 @@
+/* Receptionist layout – calm, professional, workflow-focused */
+.recep-layout {
+  display: flex;
+  min-height: calc(100vh - 0px);
+  background: #f0f4f3;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.recep-sidebar {
+  width: 240px;
+  background: #fff;
+  border-right: 1px solid #e2e8e6;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.recep-sidebar-header {
+  padding: 20px 16px;
+  border-bottom: 1px solid #e2e8e6;
+}
+
+.recep-sidebar-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2f6f6c;
+  letter-spacing: 0.02em;
+}
+
+.recep-sidebar-nav {
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.recep-nav-item {
+  padding: 10px 20px;
+  color: #4a5568;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.recep-nav-item:hover {
+  background: #e8f2f1;
+  color: #2f6f6c;
+}
+
+.recep-nav-item.active {
+  background: #e0f2f1;
+  color: #1a5f5c;
+  font-weight: 600;
+  border-left: 3px solid #2f6f6c;
+  padding-left: 17px;
+}
+
+.recep-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 8px;
+}
+
+.recep-nav-group-label {
+  padding: 8px 20px 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.recep-nav-group .recep-nav-item {
+  padding-left: 28px;
+}
+
+.recep-nav-group .recep-nav-item.active {
+  padding-left: 25px;
+}
+
+.recep-main {
+  flex: 1;
+  overflow: auto;
+  padding: 24px;
+}
+
+@media (max-width: 768px) {
+  .recep-sidebar {
+    width: 200px;
+  }
+
+  .recep-main {
+    padding: 16px;
+  }
+}

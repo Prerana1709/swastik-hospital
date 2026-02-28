@@ -1,0 +1,136 @@
+.dashboard-page {
+  min-height: 100vh;
+  background: #f5f7fa;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-header {
+  background: white;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid #e8eef0;
+}
+
+.dashboard-header h1 {
+  font-size: 1.5rem;
+  color: #1a5f5c;
+  margin: 0;
+  font-weight: 700;
+}
+
+.dashboard-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dashboard-role-badge {
+  background: #e0f2f1;
+  color: #1a5f5c;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.dashboard-logout-btn {
+  background: #1a5f5c;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dashboard-logout-btn:hover {
+  background: #144946;
+}
+
+.dashboard-main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.dashboard-title {
+  font-size: 1.75rem;
+  color: #222;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.dashboard-subtitle {
+  color: #666;
+  margin: 0 0 32px;
+  font-size: 1rem;
+}
+
+.dashboard-blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.dashboard-block {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashboard-block-enabled {
+  border-color: #1a5f5c;
+  color: #1a5f5c;
+  box-shadow: 0 4px 12px rgba(26, 95, 92, 0.15);
+}
+
+.dashboard-block-enabled:hover {
+  background: #f0f9f8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 95, 92, 0.2);
+}
+
+.dashboard-block-disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  background: #fafafa;
+  color: #888;
+}
+
+.dashboard-block-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.dashboard-block-desc {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.dashboard-block-disabled .dashboard-block-desc {
+  opacity: 0.7;
+}
+
+.dashboard-block-lock {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.75rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

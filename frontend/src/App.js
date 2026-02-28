@@ -1,4 +1,4 @@
-// Bahmni-style module-based routing. Registration has its own layout (header/footer only there).
+// App routes – uses pages and layouts only (no modules folder).
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import PatientHome from "./pages/PatientHome";
@@ -9,68 +9,31 @@ import PortalDashboard from "./pages/PortalDashboard";
 import PortalAppointmentBook from "./pages/PortalAppointmentBook";
 import PortalMedicalRecords from "./pages/PortalMedicalRecords";
 
-import Login from "./modules/auth/Login";
-import Registration from "./modules/auth/Registration";
-import Dashboard from "./modules/dashboard/Dashboard";
-import Clinical from "./modules/emr/Clinical";
-import ReportsLayout from "./modules/reports/ReportsLayout";
-import ReportsDashboard from "./modules/reports/ReportsDashboard";
-import MentalHealthOverviewReport from "./modules/reports/MentalHealthOverviewReport";
-import PsychologicalScaleAnalyticsReport from "./modules/reports/PsychologicalScaleAnalyticsReport";
-import TherapyRehabAnalyticsReport from "./modules/reports/TherapyRehabAnalyticsReport";
-import PsychiatricIPDAnalyticsReport from "./modules/reports/PsychiatricIPDAnalyticsReport";
-import MedicationComplianceReport from "./modules/reports/MedicationComplianceReport";
-import RiskSafetyMonitoringReport from "./modules/reports/RiskSafetyMonitoringReport";
-import LabLayout from "./modules/lab/LabLayout";
-import LabDashboard from "./modules/lab/LabDashboard";
-import LabOrders from "./modules/lab/LabOrders";
-import SampleCollection from "./modules/lab/SampleCollection";
-import LabResultEntry from "./modules/lab/LabResultEntry";
-import LabReports from "./modules/lab/LabReports";
-import AddNewSample from "./modules/lab/AddNewSample";
-import ImplementerLayout from "./modules/implementer/ImplementerLayout";
-import ImplementerDashboard from "./modules/implementer/ImplementerDashboard";
-import PsychiatricDepartmentConfig from "./modules/implementer/PsychiatricDepartmentConfig";
-import PsychiatricClinicalFormBuilder from "./modules/implementer/PsychiatricClinicalFormBuilder";
-import PsychiatricScalesAssessment from "./modules/implementer/PsychiatricScalesAssessment";
-import RiskSafetyConfig from "./modules/implementer/RiskSafetyConfig";
-import TherapyRehabSettings from "./modules/implementer/TherapyRehabSettings";
-import PsychiatricIPDWardConfig from "./modules/implementer/PsychiatricIPDWardConfig";
-import PsychiatricMedicationMonitoring from "./modules/implementer/PsychiatricMedicationMonitoring";
-import AdminLayout from "./modules/admin/AdminLayout";
-import AdminDashboard from "./modules/admin/AdminDashboard";
-import AdminUsers from "./modules/admin/AdminUsers";
-import AdminRoles from "./modules/admin/AdminRoles";
-import AdminStaff from "./modules/admin/AdminStaff";
-import AdminLogs from "./modules/admin/AdminLogs";
-import AdminAccess from "./modules/admin/AdminAccess";
-import PatientDocumentsLayout from "./modules/patient-documents/PatientDocumentsLayout";
-import PatientDocuments from "./modules/patient-documents/PatientDocuments";
-import AppointmentsLayout from "./modules/appointments/AppointmentsLayout";
-import Appointments from "./modules/appointments/Appointments";
-import BillingLayout from "./modules/billing/BillingLayout";
-import Billing from "./modules/billing/Billing";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import StaffSection from "./pages/StaffSection";
+import Billing from "./pages/Billing";
+import PlaceholderPage from "./pages/PlaceholderPage";
 
-import MainLayout from "./layouts/MainLayout";
+import ReceptionistLayout from "./pages/receptionist/ReceptionistLayout";
+import ReceptionistDashboard from "./pages/receptionist/ReceptionistDashboard";
+import ReceptionistAppointments from "./pages/receptionist/ReceptionistAppointments";
+import PatientRegistration from "./pages/receptionist/PatientRegistration";
+import PatientList from "./pages/receptionist/PatientList";
+import SearchUHID from "./pages/receptionist/SearchUHID";
+import Admissions from "./pages/receptionist/Admissions";
+import ReceptionistBilling from "./pages/receptionist/ReceptionistBilling";
+import Notifications from "./pages/receptionist/Notifications";
+
 import AuthLayout from "./layouts/AuthLayout";
 import RegistrationLayout from "./layouts/RegistrationLayout";
-
-import PatientRegistration from "./modules/registration/PatientRegistration";
-import DoctorRegistration from "./modules/registration/DoctorRegistration";
-import StaffRegistration from "./modules/registration/StaffRegistration";
-import OPDRegistration from "./modules/registration/OPDRegistration";
-import clinical from "./assets/clinical.png";
-import billing from "./assets/bills.png";
-import analytics from "./assets/analytics.png";
-import IPDAdmission from "./modules/registration/IPDAdmission";
-
-import AnalyticsPage from "./modules/analytics/AnalyticsPage";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Patient Home – public landing; redirects to /dashboard via CTA / Patient Login */}
         <Route path="/" element={<PatientHome />} />
         <Route path="/patient-portal" element={<PatientPortal />}>
           <Route path="login" element={<PortalLogin />} />
@@ -80,74 +43,43 @@ function App() {
           <Route path="records" element={<PortalMedicalRecords />} />
         </Route>
 
-
-        {/* Standalone Analytics: dedicated layout, not inside dashboard */}
-        <Route path="/analytics" element={<AnalyticsPage />} />
-
-        {/* AUTH: Login only; no registration header/footer */}
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
         </Route>
 
-        {/* REGISTRATION: all /registration/* use RegistrationLayout (header + footer) */}
         <Route path="/registration" element={<RegistrationLayout />}>
-          <Route index element={<Registration />} />
-          <Route path="patient" element={<PatientRegistration />} />
-          <Route path="doctor" element={<DoctorRegistration />} />
-          <Route path="staff" element={<StaffRegistration />} />
-          <Route path="opd" element={<OPDRegistration />} />
-          <Route path="ipd" element={<IPDAdmission />} />
+          <Route index element={<Register />} />
+          <Route path="patient" element={<PlaceholderPage />} />
+          <Route path="doctor" element={<PlaceholderPage />} />
+          <Route path="staff" element={<PlaceholderPage />} />
+          <Route path="opd" element={<PlaceholderPage />} />
+          <Route path="ipd" element={<PlaceholderPage />} />
         </Route>
 
-        {/* AUTHENTICATED ROUTES - no RegistrationLayout */}
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/clinical" element={<Clinical />} />
-          <Route path="/reports" element={<ReportsLayout />}>
-            <Route index element={<ReportsDashboard />} />
-            <Route path="mental-health" element={<MentalHealthOverviewReport />} />
-            <Route path="psychological-scales" element={<PsychologicalScaleAnalyticsReport />} />
-            <Route path="therapy-rehab" element={<TherapyRehabAnalyticsReport />} />
-            <Route path="psychiatric-ipd" element={<PsychiatricIPDAnalyticsReport />} />
-            <Route path="medication-compliance" element={<MedicationComplianceReport />} />
-            <Route path="risk-safety" element={<RiskSafetyMonitoringReport />} />
-            <Route path="patient-records" element={<PatientDocuments />} />
+          <Route path="/receptionist" element={<ReceptionistLayout />}>
+            <Route index element={<ReceptionistDashboard />} />
+            <Route path="appointments" element={<ReceptionistAppointments />} />
+            <Route path="patients" element={<PatientList />} />
+            <Route path="patients/register" element={<PatientRegistration />} />
+            <Route path="patients/search" element={<SearchUHID />} />
+            <Route path="admissions" element={<Admissions />} />
+            <Route path="billing" element={<ReceptionistBilling />} />
+            <Route path="notifications" element={<Notifications />} />
           </Route>
-          <Route path="/lab" element={<LabLayout />}>
-            <Route index element={<LabDashboard />} />
-            <Route path="orders" element={<LabOrders />} />
-            <Route path="collect/:orderId" element={<SampleCollection />} />
-            <Route path="result/:orderId" element={<LabResultEntry />} />
-            <Route path="reports" element={<LabReports />} />
-            <Route path="new-sample" element={<AddNewSample />} />
-          </Route>
-          <Route path="/implementer" element={<ImplementerLayout />}>
-            <Route index element={<ImplementerDashboard />} />
-            <Route path="psych-departments" element={<PsychiatricDepartmentConfig />} />
-            <Route path="clinical-forms" element={<PsychiatricClinicalFormBuilder />} />
-            <Route path="scales-assessment" element={<PsychiatricScalesAssessment />} />
-            <Route path="risk-safety" element={<RiskSafetyConfig />} />
-            <Route path="therapy-rehab" element={<TherapyRehabSettings />} />
-            <Route path="ipd-ward" element={<PsychiatricIPDWardConfig />} />
-            <Route path="medication-monitoring" element={<PsychiatricMedicationMonitoring />} />
-          </Route>
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="users" element={<AdminUsers />} />
-            <Route path="roles" element={<AdminRoles />} />
-            <Route path="staff" element={<AdminStaff />} />
-            <Route path="logs" element={<AdminLogs />} />
-            <Route path="access" element={<AdminAccess />} />
-          </Route>
-          <Route path="/patient-documents" element={<PatientDocumentsLayout />}>
-            <Route index element={<PatientDocuments />} />
-          </Route>
-          <Route path="/appointments" element={<AppointmentsLayout />}>
-            <Route index element={<Appointments />} />
-          </Route>
-          <Route path="/billing" element={<BillingLayout />}>
-            <Route index element={<Billing />} />
-          </Route>
+          <Route path="/doctor" element={<StaffSection />} />
+          <Route path="/lab" element={<StaffSection />} />
+          <Route path="/admin" element={<StaffSection />} />
+          <Route path="/clinical/*" element={<PlaceholderPage />} />
+          <Route path="/reports/*" element={<PlaceholderPage />} />
+          <Route path="/lab/*" element={<PlaceholderPage />} />
+          <Route path="/implementer/*" element={<PlaceholderPage />} />
+          <Route path="/admin/*" element={<PlaceholderPage />} />
+          <Route path="/patient-documents/*" element={<PlaceholderPage />} />
+          <Route path="/appointments/*" element={<PlaceholderPage />} />
+          <Route path="/billing" element={<Billing />} />
+          <Route path="/analytics" element={<PlaceholderPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

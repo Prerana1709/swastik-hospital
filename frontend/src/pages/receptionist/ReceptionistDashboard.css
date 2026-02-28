@@ -1,0 +1,274 @@
+/* Receptionist Dashboard – calm, professional, workflow-focused */
+.recep-dash {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.recep-dash-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a5f5c;
+  margin: 0 0 4px;
+}
+
+.recep-dash-subtitle {
+  color: #64748b;
+  margin: 0 0 24px;
+  font-size: 0.95rem;
+}
+
+.recep-dash-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  border: 1px solid #e2e8e6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.recep-dash-section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 0 0 16px;
+}
+
+.recep-dash-hint {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0 0 12px;
+}
+
+.recep-dash-quick-reg {
+  text-align: center;
+  padding: 28px 24px;
+}
+
+.recep-quick-reg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #2f6f6c;
+  color: #fff;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(47, 111, 108, 0.25);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.recep-quick-reg-btn:hover {
+  background: #1a5f5c;
+  transform: translateY(-1px);
+}
+
+.recep-dash-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.recep-dash-card {
+  background: #f8faf9;
+  border: 1px solid #e2e8e6;
+  border-radius: 10px;
+  padding: 16px 20px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.recep-dash-card-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a5f5c;
+}
+
+.recep-dash-card-label {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.recep-dash-warning {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  color: #92400e;
+  font-size: 0.9rem;
+}
+
+.recep-dash-warning-actions {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.recep-dash-alt-slots {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.recep-table-wrap {
+  overflow-x: auto;
+}
+
+.recep-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.recep-table th,
+.recep-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8e6;
+}
+
+.recep-table th {
+  font-weight: 600;
+  color: #475569;
+  background: #f8faf9;
+}
+
+.recep-table-empty {
+  color: #94a3b8;
+  padding: 16px;
+  text-align: center;
+}
+
+.recep-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.recep-btn:hover {
+  opacity: 0.9;
+}
+
+.recep-btn-small {
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  margin-right: 6px;
+}
+
+.recep-btn-primary {
+  background: #2f6f6c;
+  color: #fff;
+}
+
+.recep-btn-secondary {
+  background: #e2e8e6;
+  color: #334155;
+}
+
+.recep-btn-danger {
+  background: #fecaca;
+  color: #b91c1c;
+}
+
+.recep-dash-emergency {
+  border-left: 4px solid #dc2626;
+}
+
+.recep-btn-emergency {
+  background: #dc2626;
+  color: #fff;
+  padding: 12px 24px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+.recep-btn-emergency:hover {
+  background: #b91c1c;
+}
+
+.recep-emergency-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recep-emergency-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+}
+
+.recep-badge-emergency {
+  background: #dc2626;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+
+.recep-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+}
+
+.recep-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #e2e8e6;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.recep-status {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.recep-status-confirmed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.recep-status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.recep-status-completed {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+@media (max-width: 768px) {
+  .recep-dash-cards {
+    flex-direction: column;
+  }
+
+  .recep-table th,
+  .recep-table td {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+}
