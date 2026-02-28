@@ -13,6 +13,12 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import StaffSection from "./pages/StaffSection";
+import DoctorLayout from "./modules/doctor/DoctorLayout";
+import DoctorDashboard from "./modules/doctor/DoctorDashboard";
+import DoctorAppointments from "./modules/doctor/DoctorAppointments";
+import DoctorPatients from "./modules/doctor/DoctorPatients";
+import DoctorConsultation from "./modules/doctor/DoctorConsultation";
+import DoctorPlaceholder from "./modules/doctor/DoctorPlaceholder";
 import Billing from "./pages/Billing";
 import BillingGate from "./pages/billing/BillingGate";
 import PlaceholderPage from "./pages/PlaceholderPage";
@@ -71,7 +77,17 @@ function App() {
             <Route path="billing" element={<ReceptionistBilling />} />
             <Route path="notifications" element={<Notifications />} />
           </Route>
-          <Route path="/doctor" element={<StaffSection />} />
+          <Route path="/doctor" element={<DoctorLayout />}>
+            <Route index element={<DoctorDashboard />} />
+            <Route path="appointments" element={<DoctorAppointments />} />
+            <Route path="patients" element={<DoctorPatients />} />
+            <Route path="consultation" element={<DoctorConsultation />} />
+            <Route path="consultation/:uhid" element={<DoctorConsultation />} />
+            <Route path="assessments" element={<DoctorPlaceholder title="Assessments" />} />
+            <Route path="prescriptions" element={<DoctorPlaceholder title="Prescriptions" />} />
+            <Route path="reports" element={<DoctorPlaceholder title="Reports" />} />
+            <Route path="settings" element={<DoctorPlaceholder title="Settings" />} />
+          </Route>
           <Route path="/lab" element={<StaffSection />} />
           <Route path="/admin" element={<StaffSection />} />
           <Route path="/clinical/*" element={<PlaceholderPage />} />
