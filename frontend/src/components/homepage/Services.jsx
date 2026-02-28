@@ -1,34 +1,70 @@
+import React from "react";
 import "./Services.css";
 
-const SERVICES = [
-  { id: 1, title: "Cardiology", icon: "❤️" },
-  { id: 2, title: "Pediatrics", icon: "👶" },
-  { id: 3, title: "Orthopedics", icon: "🦴" },
-  { id: 4, title: "Diagnostics", icon: "🔬" },
-  { id: 5, title: "Emergency Care", icon: "🚑" },
+const SERVICES_DATA = [
+  {
+    id: 1,
+    title: "Depression Treatment",
+    description: "Evidence-based therapeutic interventions for mood disorders and emotional well-being.",
+    icon: "🧠"
+  },
+  {
+    id: 2,
+    title: "Anxiety Disorders",
+    description: "Expert care for generalized anxiety, panic disorders, and social phobia management.",
+    icon: "🛡️"
+  },
+  {
+    id: 3,
+    title: "Bipolar Disorder",
+    description: "Comprehensive stabilization and long-term management strategies for mood swings.",
+    icon: "⚖️"
+  },
+  {
+    id: 4,
+    title: "Addiction Therapy",
+    description: "Structured recovery programs focusing on holistic rehabilitation and relapse prevention.",
+    icon: "🌱"
+  },
+  {
+    id: 5,
+    title: "Family Counseling",
+    description: "Strengthening relationships and providing support for families navigating mental health challenges.",
+    icon: "👪"
+  },
+  {
+    id: 6,
+    title: "Child Psychiatry",
+    description: "Specialized mental health support for children and adolescents in a nurturing environment.",
+    icon: "🎈"
+  }
 ];
 
-function Services() {
+const Services = () => {
   return (
-    <section className="home-services" id="services" aria-labelledby="services-title">
-      <div className="home-services__inner">
-        <h2 id="services-title" className="home-services__title">Our Services & Departments</h2>
-        <p className="home-services__intro">
-          Comprehensive care across key specialties to meet your healthcare needs.
-        </p>
-        <div className="home-services__grid">
-          {SERVICES.map((service) => (
-            <div key={service.id} className="home-services__card">
-              <span className="home-services__icon" aria-hidden="true">
-                {service.icon}
-              </span>
-              <h3 className="home-services__card-title">{service.title}</h3>
+    <section id="services" className="services-section">
+      <div className="services__container">
+        <div className="services__header">
+          <span className="services__tagline">Our Specialization</span>
+          <h2 className="services__title">Comprehensive Mental Health Services</h2>
+          <p className="services__subtitle">
+            We provide a wide range of psychiatric and psychological services tailored to your individual needs.
+          </p>
+        </div>
+
+        <div className="services__grid">
+          {SERVICES_DATA.map((service) => (
+            <div key={service.id} className="service-card">
+              <div className="service-card__icon">{service.icon}</div>
+              <h3 className="service-card__title">{service.title}</h3>
+              <p className="service-card__description">{service.description}</p>
+              <button className="service-card__link">Learn More &rarr;</button>
             </div>
           ))}
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default Services;

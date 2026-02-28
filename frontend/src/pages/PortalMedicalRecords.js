@@ -16,16 +16,18 @@ const PortalMedicalRecords = () => {
     const records = {
         appointments: [
             { id: 1, date: '2026-02-15', doctor: 'Dr. P. M. Chougule', type: 'Initial Consultation', status: 'Completed' },
-            { id: 2, date: '2026-01-10', doctor: 'Dr. Nikhil Chougule', type: 'Follow-up', status: 'Completed' },
+            { id: 2, date: '2026-01-10', doctor: 'Dr. Nikhil Chougule', type: 'Follow-up Session', status: 'Completed' },
+            { id: 3, date: '2026-02-27', doctor: 'Dr. P. M. Chougule', type: 'Clinical Assessment', status: 'Scheduled' },
         ],
         medical: [
-            { id: 1, date: '2026-02-15', title: 'Clinical Summary - Week 1', doctor: 'Dr. P. M. Chougule', action: 'Download' },
-            { id: 2, date: '2026-01-10', title: 'Prescription - Therapy', doctor: 'Dr. Nikhil Chougule', action: 'View' },
+            { id: 1, date: '2026-02-15', title: 'Clinical Summary - Week 1', doctor: 'Dr. P. M. Chougule', size: '1.2 MB', action: 'Download' },
+            { id: 2, date: '2026-01-10', title: 'Prescription - Cognitive Therapy', doctor: 'Dr. Nikhil Chougule', size: '0.8 MB', action: 'View' },
+            { id: 3, date: '2025-12-20', title: 'Lab Results - Blood Panel', doctor: 'General Diagnostics', size: '2.5 MB', action: 'Download' },
         ],
         billing: [
-            { id: 1, date: '2026-02-15', details: 'Consultation Fee', amount: '₹1,500', status: 'Paid' },
-            { id: 2, date: '2026-01-10', details: 'Medicine Pharmacy', amount: '₹850', status: 'Paid' },
-            { id: 3, date: '2026-02-27', details: 'Pending Session Fee', amount: '₹1,200', status: 'Pending' },
+            { id: 1, date: '2026-02-15', details: 'Consultation Fee - ID: 4902', amount: '₹1,500', status: 'Paid' },
+            { id: 2, date: '2026-01-10', details: 'Therapy Session - ID: 3821', amount: '₹850', status: 'Paid' },
+            { id: 3, date: '2026-02-27', details: 'Follow-up Consultation', amount: '₹1,200', status: 'Pending' },
         ]
     };
 
@@ -35,70 +37,56 @@ const PortalMedicalRecords = () => {
         <div className="portal-sub-page">
             <div className="portal-header">
                 <h2>Health History & Records</h2>
-                <p>Track your appointments, medical summaries, and billing information in one place.</p>
+                <p>Access your complete medical journey, including appointments, clinical summaries, and billing.</p>
             </div>
 
-            <div className="portal-records-tabs" style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid #e0e0e0', paddingBottom: '0.5rem' }}>
+            <div className="portal-auth-tabs" style={{ background: '#f8fafc', border: '1px solid #e2e8f0', maxWidth: '500px' }}>
                 <button
+                    className={`portal-auth-tab ${activeTab === 'appointments' ? 'portal-auth-tab--active' : ''}`}
                     onClick={() => setActiveTab('appointments')}
-                    style={{
-                        background: 'none', border: 'none', padding: '0.5rem 1rem', cursor: 'pointer',
-                        fontWeight: activeTab === 'appointments' ? 700 : 500,
-                        color: activeTab === 'appointments' ? '#008080' : '#64748b',
-                        borderBottom: activeTab === 'appointments' ? '3px solid #008080' : 'none'
-                    }}
                 >
                     Appointments
                 </button>
                 <button
+                    className={`portal-auth-tab ${activeTab === 'medical' ? 'portal-auth-tab--active' : ''}`}
                     onClick={() => setActiveTab('medical')}
-                    style={{
-                        background: 'none', border: 'none', padding: '0.5rem 1rem', cursor: 'pointer',
-                        fontWeight: activeTab === 'medical' ? 700 : 500,
-                        color: activeTab === 'medical' ? '#008080' : '#64748b',
-                        borderBottom: activeTab === 'medical' ? '3px solid #008080' : 'none'
-                    }}
                 >
-                    Medical Records
+                    Documents
                 </button>
                 <button
+                    className={`portal-auth-tab ${activeTab === 'billing' ? 'portal-auth-tab--active' : ''}`}
                     onClick={() => setActiveTab('billing')}
-                    style={{
-                        background: 'none', border: 'none', padding: '0.5rem 1rem', cursor: 'pointer',
-                        fontWeight: activeTab === 'billing' ? 700 : 500,
-                        color: activeTab === 'billing' ? '#008080' : '#64748b',
-                        borderBottom: activeTab === 'billing' ? '3px solid #008080' : 'none'
-                    }}
                 >
-                    Billing History
+                    Billing
                 </button>
             </div>
 
-            <div className="portal-table-container">
-                <table className="portal-table">
+            <div className="portal-table-container" style={{ marginTop: '2rem' }}>
+                <table className="portal-data-table">
                     <thead>
                         {activeTab === 'appointments' && (
                             <tr>
-                                <th>Date</th>
-                                <th>Doctor</th>
-                                <th>Type</th>
+                                <th>Appointment Date</th>
+                                <th>Doctor / Specialist</th>
+                                <th>Consultation Type</th>
                                 <th>Status</th>
                             </tr>
                         )}
                         {activeTab === 'medical' && (
                             <tr>
-                                <th>Date</th>
-                                <th>Document Title</th>
-                                <th>Doctor</th>
+                                <th>Date Generated</th>
+                                <th>Document Name</th>
+                                <th>Prescribed By</th>
+                                <th>File Details</th>
                                 <th>Action</th>
                             </tr>
                         )}
                         {activeTab === 'billing' && (
                             <tr>
-                                <th>Date</th>
+                                <th>Invoice Date</th>
                                 <th>Description</th>
-                                <th>Amount</th>
-                                <th>Status</th>
+                                <th>Total Amount</th>
+                                <th>Payment Status</th>
                             </tr>
                         )}
                     </thead>
@@ -106,30 +94,46 @@ const PortalMedicalRecords = () => {
                         {activeTab === 'appointments' && records.appointments.map(item => (
                             <tr key={item.id}>
                                 <td>{item.date}</td>
-                                <td>{item.doctor}</td>
+                                <td style={{ fontWeight: 600 }}>{item.doctor}</td>
                                 <td>{item.type}</td>
-                                <td><span className="status-badge" style={{ background: '#e8f5e9', color: '#2e7d32', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem' }}>{item.status}</span></td>
+                                <td>
+                                    <span className={`status-badge ${item.status === 'Completed' ? 'status-badge--completed' : 'status-badge--pending'}`}>
+                                        {item.status}
+                                    </span>
+                                </td>
                             </tr>
                         ))}
                         {activeTab === 'medical' && records.medical.map(item => (
                             <tr key={item.id}>
                                 <td>{item.date}</td>
-                                <td>{item.title}</td>
+                                <td style={{ fontWeight: 600 }}>📄 {item.title}</td>
                                 <td>{item.doctor}</td>
-                                <td><button className="link-btn" style={{ color: '#008080', border: 'none', background: 'none', cursor: 'pointer', fontWeight: 600 }}>{item.action}</button></td>
+                                <td style={{ color: '#94a3b8', fontSize: '0.8rem' }}>PDF ({item.size})</td>
+                                <td>
+                                    <button
+                                        style={{
+                                            padding: '0.5rem 1rem',
+                                            borderRadius: '6px',
+                                            border: '1.5px solid #e2e8f0',
+                                            background: 'white',
+                                            cursor: 'pointer',
+                                            fontSize: '0.8rem',
+                                            fontWeight: 600,
+                                            color: '#0d9488'
+                                        }}
+                                    >
+                                        {item.action}
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                         {activeTab === 'billing' && records.billing.map(item => (
                             <tr key={item.id}>
                                 <td>{item.date}</td>
                                 <td>{item.details}</td>
-                                <td>{item.amount}</td>
+                                <td style={{ fontWeight: 700 }}>{item.amount}</td>
                                 <td>
-                                    <span className="status-badge" style={{
-                                        background: item.status === 'Paid' ? '#e8f5e9' : '#fff3e0',
-                                        color: item.status === 'Paid' ? '#2e7d32' : '#e65100',
-                                        padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem'
-                                    }}>
+                                    <span className={`status-badge ${item.status === 'Paid' ? 'status-badge--paid' : 'status-badge--pending'}`}>
                                         {item.status}
                                     </span>
                                 </td>
@@ -139,13 +143,11 @@ const PortalMedicalRecords = () => {
                 </table>
             </div>
 
-            <div style={{ marginTop: '2rem' }}>
-                <button
-                    onClick={() => navigate('/patient-portal/dashboard')}
-                    className="btn-portal btn-portal-register"
-                >
-                    ← Back to Dashboard
-                </button>
+            <div style={{ marginTop: '2.5rem', display: 'flex', alignItems: 'center', gap: '1rem', padding: '1.5rem', background: '#fdf2f2', borderRadius: '12px', border: '1px solid #fecaca' }}>
+                <span style={{ fontSize: '1.5rem' }}>ℹ️</span>
+                <p style={{ margin: 0, fontSize: '0.875rem', color: '#991b1b', lineHeight: '1.4' }}>
+                    <strong>Confidentiality Notice:</strong> All medical records are encrypted and strictly confidential. If you notice any discrepancy, please contact our administrative desk immediately.
+                </p>
             </div>
         </div>
     );

@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { FiCheckCircle } from 'react-icons/fi';
 import {
   generateUHID,
   generateCaseNumber,
@@ -8,7 +9,11 @@ import {
   STORAGE_KEYS,
   getEmergencyQueue,
   setEmergencyQueue,
+  HOSPITAL_PRICING,
+  saveInvoice,
+  generateInvoiceID,
 } from "./receptionistData";
+import BillingReceipt from "./BillingReceipt";
 import "./PatientRegistration.css";
 
 const STEPS = [
@@ -67,6 +72,7 @@ function PatientRegistration() {
   const [riskFlag, setRiskFlag] = useState(false);
   const [highObservation, setHighObservation] = useState(false);
   const [generatedPaper, setGeneratedPaper] = useState(null);
+  const [generatedInvoice, setGeneratedInvoice] = useState(null);
 
   useEffect(() => {
     if (step === 4 && (form.selfHarmHistory === "yes" || form.violentHistory === "yes")) {
@@ -115,6 +121,24 @@ function PatientRegistration() {
       setEmergencyQueue([...queue, { id: patient.visitId, patientName: patient.fullName, reason: "Emergency registration" }]);
     }
     setGeneratedPaper({ uhid: patient.uhid, caseNumber: patient.caseNumber, visitId: patient.visitId, queueToken: patient.queueToken, fullName: patient.fullName });
+
+    // Generate Invoice
+    const invoice = {
+      id: generateInvoiceID(),
+      uhid: patient.uhid,
+      patientName: patient.fullName,
+      visitId: patient.visitId,
+      date: new Date().toISOString(),
+      items: [
+        { description: "Registration Fee", amount: HOSPITAL_PRICING.REGISTRATION },
+        { description: "Case Paper Charges", amount: HOSPITAL_PRICING.CASE_PAPER },
+      ],
+      totalAmount: HOSPITAL_PRICING.REGISTRATION + HOSPITAL_PRICING.CASE_PAPER,
+      status: "paid", // For demo, assume registration fee is collected immediately
+    };
+    saveInvoice(invoice);
+    setGeneratedInvoice(invoice);
+
     setStep(8);
   };
 
@@ -411,26 +435,43 @@ function PatientRegistration() {
         {/* Step 8 – Case Paper (summary / print) */}
         {step === 8 && (
           <div className="recep-reg-step-content recep-reg-summary">
-            <h2>Generate Case Paper</h2>
-            {generatedPaper ? (
-              <>
-                <div className="recep-reg-paper">
-                  <p><strong>UHID:</strong> {generatedPaper.uhid}</p>
-                  <p><strong>Case Number:</strong> {generatedPaper.caseNumber}</p>
-                  <p><strong>Visit ID:</strong> {generatedPaper.visitId}</p>
-                  <p><strong>Queue Token:</strong> {generatedPaper.queueToken}</p>
-                  <p><strong>Patient:</strong> {generatedPaper.fullName}</p>
-                </div>
-                <button type="button" className="recep-btn recep-btn-primary recep-print-btn" onClick={handlePrint}>
-                  🖨 Print Case Paper
-                </button>
-                <button type="button" className="recep-btn recep-btn-secondary" onClick={() => navigate("/receptionist/patients/register")}>
-                  Register Another
-                </button>
-              </>
-            ) : (
-              <p>Submitting...</p>
-            )}
+            <h2 style={{ color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+              <FiCheckCircle /> Registration Successful
+            </h2>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 400px) 1fr', gap: '2rem', alignItems: 'start', marginTop: '2rem' }}>
+              {/* Case Paper Card */}
+              <div className="recep-reg-paper" style={{ margin: 0, width: '100%', minWidth: 'unset' }}>
+                <h3 style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '0.75rem', marginBottom: '1.25rem' }}>Case Details</h3>
+                {generatedPaper && (
+                  <>
+                    <p><strong>UHID:</strong> {generatedPaper.uhid}</p>
+                    <p><strong>Case Number:</strong> {generatedPaper.caseNumber}</p>
+                    <p><strong>Visit ID:</strong> {generatedPaper.visitId}</p>
+                    <p><strong>Token:</strong> {generatedPaper.queueToken}</p>
+                    <p><strong>Patient:</strong> {generatedPaper.fullName}</p>
+                    <button type="button" className="recep-btn recep-btn-primary recep-print-btn" onClick={handlePrint} style={{ width: '100%', marginTop: '1.5rem' }}>
+                      🖨 Print Case Paper
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Billing Receipt */}
+              <div>
+                <h3 style={{ marginBottom: '1.25rem', textAlign: 'left' }}>Payment Receipt</h3>
+                <BillingReceipt invoice={generatedInvoice} />
+              </div>
+            </div>
+
+            <div style={{ marginTop: '3rem', borderTop: '1px solid #f1f5f9', paddingTop: '2rem' }}>
+              <button type="button" className="recep-btn recep-btn-secondary" onClick={() => navigate("/receptionist")}>
+                Go to Dashboard
+              </button>
+              <button type="button" className="recep-btn recep-btn-primary" style={{ marginLeft: '1rem' }} onClick={() => window.location.reload()}>
+                Register Another Patient
+              </button>
+            </div>
           </div>
         )}
 

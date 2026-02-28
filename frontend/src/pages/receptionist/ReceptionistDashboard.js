@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { FiUsers, FiCalendar, FiClock, FiCheckCircle, FiActivity, FiBriefcase, FiAlertTriangle, FiPlus } from 'react-icons/fi';
 import {
   getTodayAppointments,
   getPendingRequests,
@@ -22,7 +23,6 @@ export default function ReceptionistDashboard() {
   const [patientCounts, setPatientCounts] = useState({ total: 0, opd: 0, followUp: 0, therapy: 0, emergency: 0 });
 
   const refresh = () => {
-    const today = new Date().toISOString().slice(0, 10);
     setAppointments(getTodayAppointments());
     setPending(getPendingRequests());
     setDoctors(getDoctors());
@@ -60,43 +60,55 @@ export default function ReceptionistDashboard() {
 
   return (
     <div className="recep-dash">
-      <h1 className="recep-dash-title">Receptionist Dashboard</h1>
-      <p className="recep-dash-subtitle">Today&apos;s overview. Workflow-focused.</p>
+      <h1 className="recep-dash-title">Reception Dashboard</h1>
+      <p className="recep-dash-subtitle">Welcome back. Here is what&apos;s happening at the hospital today.</p>
 
-      {/* Quick Register – prominent */}
-      <section className="recep-dash-section recep-dash-quick-reg">
+      {/* Quick Action – prominent */}
+      <section className="recep-dash-quick-reg">
+        <div className="recep-quick-info">
+          <h2 style={{ margin: 0, color: '#0f172a' }}>Patient Onboarding</h2>
+          <p style={{ margin: '0.5rem 0 0', color: '#64748b' }}>Quickly register new arrivals to the hospital system.</p>
+        </div>
         <button type="button" className="recep-quick-reg-btn" onClick={() => navigate("/receptionist/patients/register")}>
-          ➕ Register New Patient
+          <FiPlus /> Register New Patient
         </button>
       </section>
 
       {/* 1. Today's Appointments */}
       <section className="recep-dash-section">
-        <h2 className="recep-dash-section-title">Today&apos;s Appointments</h2>
+        <h2 className="recep-dash-section-title"><FiCalendar /> Today&apos;s Appointments</h2>
         <div className="recep-dash-cards">
           <div className="recep-dash-card">
+            <div className="recep-dash-card-icon"><FiCalendar /></div>
             <span className="recep-dash-card-value">{appointments.length}</span>
-            <span className="recep-dash-card-label">Total</span>
+            <span className="recep-dash-card-label">Total Scheduled</span>
           </div>
           <div className="recep-dash-card">
+            <div className="recep-dash-card-icon" style={{ backgroundColor: '#f0fdf4', color: '#16a34a' }}><FiCheckCircle /></div>
             <span className="recep-dash-card-value">{confirmed}</span>
             <span className="recep-dash-card-label">Confirmed</span>
           </div>
           <div className="recep-dash-card">
+            <div className="recep-dash-card-icon" style={{ backgroundColor: '#fffbeb', color: '#d97706' }}><FiClock /></div>
             <span className="recep-dash-card-value">{pendingCount}</span>
-            <span className="recep-dash-card-label">Pending</span>
+            <span className="recep-dash-card-label">Pending Approval</span>
           </div>
           <div className="recep-dash-card">
+            <div className="recep-dash-card-icon" style={{ backgroundColor: '#f8fafc', color: '#475569' }}><FiActivity /></div>
             <span className="recep-dash-card-value">{completed}</span>
             <span className="recep-dash-card-label">Completed</span>
           </div>
         </div>
+
         {doctorAbsent && (
           <div className="recep-dash-warning">
-            <strong>Doctor Not Available:</strong> {doctorAbsent.name}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <FiAlertTriangle style={{ fontSize: '1.25rem' }} />
+              <span><strong>Doctor Not Available:</strong> {doctorAbsent.name} is currently out of office.</span>
+            </div>
             <div className="recep-dash-warning-actions">
-              <button type="button" className="recep-btn recep-btn-secondary">Reschedule</button>
-              <span className="recep-dash-alt-slots">Alternative slots: 2:00 PM, 4:00 PM</span>
+              <span className="recep-dash-alt-slots">Alt slots: 2 PM, 4 PM</span>
+              <button type="button" className="recep-btn recep-btn-primary">Notify Patients</button>
             </div>
           </div>
         )}
@@ -104,32 +116,31 @@ export default function ReceptionistDashboard() {
 
       {/* 2. Pending Appointment Requests */}
       <section className="recep-dash-section">
-        <h2 className="recep-dash-section-title">Pending Appointment Requests</h2>
+        <h2 className="recep-dash-section-title"><FiClock /> Pending Appointment Requests</h2>
         <div className="recep-table-wrap">
           <table className="recep-table">
             <thead>
               <tr>
                 <th>Patient Name</th>
                 <th>Doctor</th>
-                <th>Date & Time</th>
-                <th>Type</th>
-                <th>Actions</th>
+                <th>Desired Schedule</th>
+                <th>Visit Type</th>
+                <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {pending.length === 0 ? (
-                <tr><td colSpan={5} className="recep-table-empty">No pending requests</td></tr>
+                <tr><td colSpan={5} className="recep-table-empty">No pending requests at the moment.</td></tr>
               ) : (
                 pending.map((req) => (
                   <tr key={req.id}>
-                    <td>{req.patientName}</td>
+                    <td><strong>{req.patientName}</strong></td>
                     <td>{req.doctor}</td>
-                    <td>{req.date} {req.time}</td>
-                    <td>{req.type || "OPD"}</td>
-                    <td>
+                    <td>{req.date} at {req.time}</td>
+                    <td><span className="recep-status recep-status-pending">{req.type || "OPD"}</span></td>
+                    <td style={{ textAlign: 'right' }}>
                       <button type="button" className="recep-btn recep-btn-small recep-btn-primary" onClick={() => handleConfirmRequest(req)}>Confirm</button>
                       <button type="button" className="recep-btn recep-btn-small recep-btn-secondary" onClick={() => handleRescheduleRequest(req)}>Reschedule</button>
-                      <button type="button" className="recep-btn recep-btn-small recep-btn-danger" onClick={() => handleCancelRequest(req)}>Cancel</button>
                     </td>
                   </tr>
                 ))
@@ -141,66 +152,90 @@ export default function ReceptionistDashboard() {
 
       {/* 3. Total Patients Today */}
       <section className="recep-dash-section">
-        <h2 className="recep-dash-section-title">Total Patients Today</h2>
+        <h2 className="recep-dash-section-title"><FiUsers /> Daily Patient Metrics</h2>
         <div className="recep-dash-cards">
           <div className="recep-dash-card">
+            <div className="recep-dash-card-icon"><FiUsers /></div>
             <span className="recep-dash-card-value">{patientCounts.total}</span>
-            <span className="recep-dash-card-label">Total</span>
+            <span className="recep-dash-card-label">Total Arrivals</span>
           </div>
           <div className="recep-dash-card">
+            <div className="recep-dash-card-icon"><FiActivity /></div>
             <span className="recep-dash-card-value">{patientCounts.opd}</span>
-            <span className="recep-dash-card-label">OPD walk-ins</span>
+            <span className="recep-dash-card-label">OPD Walk-ins</span>
           </div>
           <div className="recep-dash-card">
+            <div className="recep-dash-card-icon"><FiClock /></div>
             <span className="recep-dash-card-value">{patientCounts.followUp}</span>
-            <span className="recep-dash-card-label">Follow-ups</span>
+            <span className="recep-dash-card-label">Follow-up Visits</span>
           </div>
           <div className="recep-dash-card">
-            <span className="recep-dash-card-value">{patientCounts.therapy}</span>
-            <span className="recep-dash-card-label">Therapy sessions</span>
-          </div>
-          <div className="recep-dash-card">
+            <div className="recep-dash-card-icon" style={{ backgroundColor: '#fef2f2', color: '#dc2626' }}><FiAlertTriangle /></div>
             <span className="recep-dash-card-value">{patientCounts.emergency}</span>
-            <span className="recep-dash-card-label">Emergency arrivals</span>
+            <span className="recep-dash-card-label">Psychiatric Crisis</span>
           </div>
         </div>
       </section>
 
       {/* 4. Emergency Cases */}
       <section className="recep-dash-section recep-dash-emergency">
-        <h2 className="recep-dash-section-title">Emergency Cases (Walk-in Psychiatric Crisis)</h2>
-        <p className="recep-dash-hint">High priority. Quick register → Assign emergency tag → Alert duty doctor. Skips normal queue.</p>
-        <button type="button" className="recep-btn recep-btn-emergency" onClick={handleAddEmergency}>
-          + Add Emergency Patient
-        </button>
-        {emergencyQueue.length > 0 && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+          <div>
+            <h2 className="recep-dash-section-title" style={{ marginBottom: '0.5rem' }}>Crisis Management</h2>
+            <p style={{ color: '#991b1b', fontSize: '0.9rem', margin: 0 }}>High priority alerts for walk-in psychiatric emergencies.</p>
+          </div>
+          <button type="button" className="recep-btn-emergency" onClick={handleAddEmergency}>
+            <FiAlertTriangle /> Initiate Emergency Protocol
+          </button>
+        </div>
+
+        {emergencyQueue.length > 0 ? (
           <div className="recep-emergency-list">
             {emergencyQueue.map((e) => (
               <div key={e.id} className="recep-emergency-item">
-                <span className="recep-badge-emergency">HIGH PRIORITY</span>
-                <span>{e.patientName || "Unnamed"} – {e.reason || "Emergency"}</span>
+                <span className="recep-badge-emergency">IMMEDIATE ATTENTION</span>
+                <span style={{ fontWeight: 600 }}>{e.patientName || "Unnamed Patient"}</span>
+                <span style={{ color: '#64748b' }}>&bull; {e.reason || "Psychiatric Crisis"}</span>
               </div>
             ))}
+          </div>
+        ) : (
+          <div style={{ textAlign: 'center', padding: '1rem', color: '#991b1b', backgroundColor: 'rgba(255,255,255,0.5)', borderRadius: '12px' }}>
+            No active psychiatric emergency cases.
           </div>
         )}
       </section>
 
       {/* 5. Admission Requests (IPD) */}
       <section className="recep-dash-section">
-        <h2 className="recep-dash-section-title">Admission Requests (IPD)</h2>
-        <p className="recep-dash-hint">Check bed availability → Assign ward → Generate admission form → Inform nursing.</p>
-        {admissionRequests.length === 0 ? (
-          <p className="recep-table-empty">No admission requests</p>
-        ) : (
-          <ul className="recep-list">
-            {admissionRequests.map((a) => (
-              <li key={a.id}>{a.patientName} – {a.ward} – <button type="button" className="recep-btn recep-btn-small recep-btn-primary">Process</button></li>
-            ))}
-          </ul>
-        )}
-        <button type="button" className="recep-btn recep-btn-secondary" onClick={() => navigate("/receptionist/admissions")}>
-          Go to Admissions
-        </button>
+        <h2 className="recep-dash-section-title"><FiBriefcase /> Admission Pipeline (IPD)</h2>
+        <div className="recep-table-wrap" style={{ padding: '1rem' }}>
+          {admissionRequests.length === 0 ? (
+            <p className="recep-table-empty">No pending admission requests.</p>
+          ) : (
+            <ul className="recep-list" style={{ listStyle: 'none', padding: 0 }}>
+              {admissionRequests.map((a) => (
+                <li key={a.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderBottom: '1px solid #f1f5f9' }}>
+                  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b' }}>
+                      <FiUsers />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 600 }}>{a.patientName}</div>
+                      <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Assigned Ward: {a.ward}</div>
+                    </div>
+                  </div>
+                  <button type="button" className="recep-btn recep-btn-primary">Process Admission</button>
+                </li>
+              ))}
+            </ul>
+          )}
+          <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
+            <button type="button" className="recep-btn recep-btn-secondary" onClick={() => navigate("/receptionist/admissions")}>
+              View All Admissions &rarr;
+            </button>
+          </div>
+        </div>
       </section>
     </div>
   );

@@ -1,24 +1,8 @@
 import React from "react";
 import { Outlet, Navigate, useNavigate, NavLink } from "react-router-dom";
+import { FiHome, FiCalendar, FiUsers, FiPlusCircle, FiSearch, FiActivity, FiCreditCard, FiBell, FiLogOut } from 'react-icons/fi';
 import { getStaffRole } from "../../utils/staffAuth";
 import "./ReceptionistLayout.css";
-
-const SIDEBAR_ITEMS = [
-  { path: "/receptionist", end: true, label: "Dashboard" },
-  { path: "/receptionist/appointments", label: "Appointments" },
-  {
-    path: "/receptionist/patients",
-    label: "Patients",
-    children: [
-      { path: "/receptionist/patients/register", label: "Register New Patient" },
-      { path: "/receptionist/patients", end: true, label: "Patient List" },
-      { path: "/receptionist/patients/search", label: "Search UHID" },
-    ],
-  },
-  { path: "/receptionist/admissions", label: "Admissions" },
-  { path: "/receptionist/billing", label: "Billing" },
-  { path: "/receptionist/notifications", label: "Notifications" },
-];
 
 function ReceptionistLayout() {
   const navigate = useNavigate();
@@ -28,45 +12,62 @@ function ReceptionistLayout() {
     return <Navigate to="/dashboard" replace />;
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("staff_token");
+    localStorage.removeItem("staff_role");
+    navigate("/login");
+  };
+
   return (
     <div className="recep-layout">
       <aside className="recep-sidebar">
         <div className="recep-sidebar-header">
-          <span className="recep-sidebar-title">Reception</span>
+          <span className="recep-sidebar-title">Medical Reception</span>
         </div>
+
         <nav className="recep-sidebar-nav">
           <NavLink to="/receptionist" end className={({ isActive }) => (isActive ? "recep-nav-item active" : "recep-nav-item")}>
-            Dashboard
+            <FiHome /> Dashboard
           </NavLink>
+
           <NavLink to="/receptionist/appointments" className={({ isActive }) => (isActive ? "recep-nav-item active" : "recep-nav-item")}>
-            Appointments
+            <FiCalendar /> Appointments
           </NavLink>
+
           <div className="recep-nav-group">
             <span className="recep-nav-group-label">Patients</span>
             <NavLink to="/receptionist/patients/register" className={({ isActive }) => (isActive ? "recep-nav-item active" : "recep-nav-item")}>
-              Register New Patient
+              <FiPlusCircle /> Register New Patient
             </NavLink>
             <NavLink to="/receptionist/patients" end className={({ isActive }) => (isActive ? "recep-nav-item active" : "recep-nav-item")}>
-              Patient List
+              <FiUsers /> Patient List
             </NavLink>
             <NavLink to="/receptionist/patients/search" className={({ isActive }) => (isActive ? "recep-nav-item active" : "recep-nav-item")}>
-              Search UHID
+              <FiSearch /> Search UHID
             </NavLink>
           </div>
+
           <NavLink to="/receptionist/admissions" className={({ isActive }) => (isActive ? "recep-nav-item active" : "recep-nav-item")}>
-            Admissions
+            <FiActivity /> Admissions
           </NavLink>
+
           <NavLink to="/receptionist/billing" className={({ isActive }) => (isActive ? "recep-nav-item active" : "recep-nav-item")}>
-            Billing
+            <FiCreditCard /> Billing
           </NavLink>
+
           <NavLink to="/receptionist/notifications" className={({ isActive }) => (isActive ? "recep-nav-item active" : "recep-nav-item")}>
-            Notifications
+            <FiBell /> Notifications
           </NavLink>
         </nav>
+
+        <button className="recep-logout-btn" onClick={handleLogout}>
+          <FiLogOut /> Sign Out
+        </button>
       </aside>
-      <div className="recep-main">
+
+      <main className="recep-main">
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 }

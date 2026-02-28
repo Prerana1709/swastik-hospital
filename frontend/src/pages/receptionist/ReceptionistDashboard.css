@@ -1,274 +1,340 @@
-/* Receptionist Dashboard – calm, professional, workflow-focused */
+/* Receptionist Dashboard Modernization */
 .recep-dash {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .recep-dash-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1a5f5c;
-  margin: 0 0 4px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
 }
 
 .recep-dash-subtitle {
+  font-size: 1rem;
   color: #64748b;
-  margin: 0 0 24px;
-  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
 }
 
-.recep-dash-section {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px 24px;
-  margin-bottom: 24px;
-  border: 1px solid #e2e8e6;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-}
-
-.recep-dash-section-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #334155;
-  margin: 0 0 16px;
-}
-
-.recep-dash-hint {
-  font-size: 0.875rem;
-  color: #64748b;
-  margin: 0 0 12px;
-}
-
+/* Quick Actions Section */
 .recep-dash-quick-reg {
-  text-align: center;
-  padding: 28px 24px;
+  background: white;
+  padding: 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #f1f5f9;
+  background-image: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
 }
 
 .recep-quick-reg-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: #2f6f6c;
-  color: #fff;
+  background: #0d9488;
+  color: white;
   border: none;
-  padding: 16px 32px;
-  border-radius: 10px;
+  padding: 1rem 2rem;
+  border-radius: 12px;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(47, 111, 108, 0.25);
-  transition: background 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s;
+  box-shadow: 0 10px 15px -3px rgba(13, 148, 136, 0.3);
 }
 
 .recep-quick-reg-btn:hover {
-  background: #1a5f5c;
-  transform: translateY(-1px);
+  background: #0f766e;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 25px -5px rgba(13, 148, 136, 0.4);
+}
+
+/* Stat Cards */
+.recep-dash-section {
+  margin-bottom: 3rem;
+}
+
+.recep-dash-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .recep-dash-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
 }
 
 .recep-dash-card {
-  background: #f8faf9;
-  border: 1px solid #e2e8e6;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all 0.3s;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.recep-dash-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+  border-color: #0d9488;
+}
+
+.recep-dash-card-icon {
+  width: 40px;
+  height: 40px;
+  background: #f0fdfa;
+  color: #0d9488;
   border-radius: 10px;
-  padding: 16px 20px;
-  min-width: 100px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .recep-dash-card-value {
-  display: block;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1a5f5c;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
 }
 
 .recep-dash-card-label {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: #64748b;
+  font-weight: 500;
 }
 
+/* Warning/Alert */
 .recep-dash-warning {
-  margin-top: 16px;
-  padding: 12px 16px;
-  background: #fef3c7;
-  border: 1px solid #f59e0b;
-  border-radius: 8px;
+  margin-top: 1.5rem;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  padding: 1.25rem;
+  border-radius: 16px;
   color: #92400e;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .recep-dash-warning-actions {
-  margin-top: 8px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .recep-dash-alt-slots {
+  color: #b45309;
+  font-weight: 600;
+  background: #fef3c7;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
   font-size: 0.85rem;
-  color: #64748b;
 }
 
+/* Tables */
 .recep-table-wrap {
-  overflow-x: auto;
+  background: white;
+  border-radius: 20px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
 }
 
 .recep-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
-}
-
-.recep-table th,
-.recep-table td {
-  padding: 12px 16px;
-  text-align: left;
-  border-bottom: 1px solid #e2e8e6;
 }
 
 .recep-table th {
-  font-weight: 600;
-  color: #475569;
-  background: #f8faf9;
+  background: #f8fafc;
+  text-align: left;
+  padding: 1rem 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #f1f5f9;
 }
 
-.recep-table-empty {
-  color: #94a3b8;
-  padding: 16px;
-  text-align: center;
-}
-
-.recep-btn {
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  transition: opacity 0.2s;
-}
-
-.recep-btn:hover {
-  opacity: 0.9;
-}
-
-.recep-btn-small {
-  padding: 6px 10px;
-  font-size: 0.8rem;
-  margin-right: 6px;
-}
-
-.recep-btn-primary {
-  background: #2f6f6c;
-  color: #fff;
-}
-
-.recep-btn-secondary {
-  background: #e2e8e6;
+.recep-table td {
+  padding: 1.25rem 1.5rem;
+  font-size: 0.95rem;
   color: #334155;
+  border-bottom: 1px solid #f8fafc;
 }
 
-.recep-btn-danger {
-  background: #fecaca;
-  color: #b91c1c;
+.recep-table tr:last-child td {
+  border-bottom: none;
 }
 
+.recep-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* Emergency Styling */
 .recep-dash-emergency {
-  border-left: 4px solid #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  padding: 2rem;
+  border-radius: 24px;
+}
+
+.recep-dash-emergency .recep-dash-section-title {
+  color: #b91c1c;
 }
 
 .recep-btn-emergency {
   background: #dc2626;
-  color: #fff;
-  padding: 12px 24px;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
   font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.2);
 }
 
 .recep-btn-emergency:hover {
   background: #b91c1c;
-}
-
-.recep-emergency-list {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  transform: scale(1.02);
 }
 
 .recep-emergency-item {
+  margin-top: 1rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  background: #fef2f2;
-  border-radius: 8px;
-  border: 1px solid #fecaca;
+  gap: 1rem;
+  border: 1px solid #fee2e2;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.01);
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .recep-badge-emergency {
-  background: #dc2626;
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.02em;
-}
-
-.recep-list {
-  list-style: none;
-  margin: 0 0 12px;
-  padding: 0;
-}
-
-.recep-list li {
-  padding: 8px 0;
-  border-bottom: 1px solid #e2e8e6;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.recep-status {
-  font-size: 0.8rem;
-  padding: 4px 8px;
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 0.25rem 0.6rem;
   border-radius: 6px;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+/* General Buttons */
+.recep-btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-size: 0.875rem;
+}
+
+.recep-btn-primary {
+  background: #0d9488;
+  color: white;
+}
+
+.recep-btn-secondary {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.recep-btn-danger {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.recep-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.recep-btn-small {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+}
+
+/* Status Badges */
+.recep-status {
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .recep-status-confirmed {
-  background: #d1fae5;
-  color: #065f46;
+  background: #f0fdf4;
+  color: #16a34a;
 }
 
 .recep-status-pending {
-  background: #fef3c7;
-  color: #92400e;
+  background: #fffbeb;
+  color: #d97706;
 }
 
 .recep-status-completed {
-  background: #e0e7ff;
-  color: #3730a3;
+  background: #f1f5f9;
+  color: #475569;
 }
 
 @media (max-width: 768px) {
   .recep-dash-cards {
-    flex-direction: column;
+    grid-template-columns: 1fr 1fr;
   }
 
-  .recep-table th,
-  .recep-table td {
-    padding: 8px;
-    font-size: 0.85rem;
+  .recep-dash-quick-reg {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
   }
 }

@@ -1,411 +1,155 @@
-/* ========== Global: match clinical section theme ========== */
+/* Patient Portal Logged-in Layout */
 .patient-portal-page {
     min-height: 100vh;
-    background-color: #f4f8fb;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8fafc;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-.patient-portal-with-header {
-    padding: 0;
+.patient-portal-app-header {
+    background: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-logo {
+    height: 40px;
+}
+
+.header-text h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    color: #0f172a;
+}
+
+.header-subtitle {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin: 0;
+}
+
+.logout-btn {
+    padding: 0.5rem 1.25rem;
+    background: #f1f5f9;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logout-btn:hover {
+    background: #fee2e2;
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+/* Sidebar & Content Layout */
+.patient-portal-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.portal-sidebar {
+    width: 260px;
+    background: white;
+    border-right: 1px solid #e2e8f0;
+    padding: 2rem 1rem;
+}
+
+.portal-sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.portal-sidebar button {
+    padding: 0.875rem 1.25rem;
+    text-align: left;
+    border: none;
+    background: none;
+    border-radius: 10px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.portal-sidebar button:hover {
+    background: #f0fdfa;
+    color: #0d9488;
+}
+
+.portal-sidebar button.active {
+    background: #0d9488;
+    color: white;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
 }
 
 .patient-portal-content {
     flex: 1;
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 1.5rem 2rem 2rem;
-    box-sizing: border-box;
+    padding: 2.5rem;
+    overflow-y: auto;
 }
 
-.portal-back-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.25rem;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-}
-
-/* Full-width bar below navbar: aligns "Back to Home" with header Login button */
-.portal-back-bar-full {
-    width: 100%;
-    padding: 12px 24px;
-    margin-bottom: 0;
-    background: #f4f8fb;
-    border-bottom: 1px solid #e8eaed;
-    box-sizing: border-box;
-}
-
-.portal-back-bar-full + .patient-portal-content {
-    padding-top: 1.5rem;
-}
-
-.portal-back-btn {
-    background: white;
-    border: 1px solid #e0e0e0;
-    color: #2f6f6f;
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    border-radius: 10px;
-    transition: all 0.2s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-}
-
-.portal-back-btn:hover {
-    border-color: #2f6f6f;
-    background: #f4f8fb;
-    color: #1e5252;
-    box-shadow: 0 2px 8px rgba(47, 111, 111, 0.12);
-}
-
-.portal-back-btn:active {
-    transform: translateY(0);
-}
-
-.portal-back-btn.portal-back-home {
-    margin-left: auto;
-    color: #5a6c7d;
-    border-color: #e8eaed;
-}
-
-.portal-back-btn.portal-back-home:hover {
-    border-color: #2f6f6f;
-    color: #2f6f6f;
-    background: #f4f8fb;
-}
-
-.patient-portal-container {
-    max-width: 1000px;
-    width: 100%;
-    background: white;
-    border-radius: 16px;
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(47, 111, 111, 0.08);
-}
-
-/* ========== Patient Portal site header (clinical-style, professional) ========== */
-.patient-portal-app-header {
-    background: white;
-    color: #333;
-    padding: 18px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #e0e0e0;
-    flex-shrink: 0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-}
-
-.patient-portal-app-header .header-left {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-.patient-portal-app-header .header-logo {
-    height: 52px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-}
-
-.patient-portal-app-header .header-text {
-    line-height: 1.3;
-}
-
-.patient-portal-app-header .header-text h1 {
-    font-size: 1.35rem;
-    font-weight: 700;
-    margin: 0 0 2px 0;
-    color: #2f6f6f;
-    letter-spacing: 0.3px;
-}
-
-.patient-portal-app-header .header-subtitle {
-    font-size: 12px;
-    color: #666;
-    font-weight: 500;
-    margin: 0;
-    letter-spacing: 0.2px;
-}
-
-.patient-portal-app-header .header-right {
-    display: flex;
-    align-items: center;
-}
-
-.patient-portal-app-header .logout-btn {
-    background: linear-gradient(135deg, #2f6f6f 0%, #3a8a87 100%);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.patient-portal-app-header .logout-btn:hover {
-    background: linear-gradient(135deg, #256363 0%, #2f6f6f 100%);
-    box-shadow: 0 4px 12px rgba(47, 111, 111, 0.3);
-}
-
-/* Base portal: center the two-panel container */
-.patient-portal-with-header .patient-portal-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.patient-portal-with-header .patient-portal-container {
-    width: 100%;
-}
-
-/* ========== Patient Portal site footer (clinical-style) ========== */
 .patient-portal-app-footer {
-    background: #f5f7fa;
-    border-top: 1px solid #e0e0e0;
-    padding: 16px 20px;
-    flex-shrink: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.patient-portal-app-footer .footer-content {
-    margin: 0 auto;
-    max-width: 100%;
-    font-size: 13px;
-    color: #666;
-    line-height: 1.5;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.patient-portal-app-footer .copyright {
-    margin: 0;
-    font-size: 13px;
-    color: #666;
-    font-weight: 700;
-    text-align: center;
-}
-
-/* Left Panel - teal theme */
-.portal-left-panel {
-    background: linear-gradient(135deg, #e8f5f4 0%, #c8e6e3 100%);
-    padding: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.portal-illustration {
-    width: 180px;
-    height: 180px;
     background: white;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 16px rgba(47, 111, 111, 0.12);
-}
-
-.portal-badge {
-    background: #2f6f6f;
-    color: white;
-    padding: 0.5rem 1.5rem;
-    border-radius: 50px;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    margin-bottom: 2rem;
-}
-
-.portal-features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    width: 100%;
-}
-
-.portal-features li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    color: #2c3e50;
-    font-weight: 500;
-    font-size: 1rem;
-}
-
-.feature-icon {
-    color: #2f6f6f;
-    margin-right: 0.75rem;
-    font-weight: bold;
-}
-
-/* Right Panel */
-.portal-right-panel {
-    padding: 4rem 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.portal-welcome-tags {
-    color: #2f6f6f;
-    font-weight: 600;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-.portal-right-panel h1 {
-    color: #2c3e50;
-    font-size: 2.5rem;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    font-weight: 800;
-}
-
-.portal-description {
-    color: #546e7a;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 2.5rem;
-}
-
-.portal-actions {
-    display: flex;
-    gap: 1rem;
-}
-
-.btn-portal {
-    padding: 1rem 2.5rem;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    text-decoration: none;
-    display: inline-block;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid #e2e8f0;
     text-align: center;
 }
 
-.btn-portal-login {
-    background: linear-gradient(135deg, #2f6f6f 0%, #3a8a87 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(47, 111, 111, 0.25);
+.copyright {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin: 0;
 }
 
-.btn-portal-login:hover {
-    background: linear-gradient(135deg, #256363 0%, #2f6f6f 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(47, 111, 111, 0.3);
-}
-
-.btn-portal-register {
-    background: #f4f8fb;
-    color: #2f6f6f;
-    border: 2px solid #2f6f6f;
-}
-
-.btn-portal-register:hover {
-    background: #e8f5f4;
-    transform: translateY(-2px);
-}
-
-/* Responsive: header/footer */
-@media (max-width: 768px) {
-    .patient-portal-app-header {
-        padding: 12px 15px;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-
-    .patient-portal-app-header .header-logo {
-        height: 40px;
-    }
-
-    .patient-portal-app-header .header-text h1 {
-        font-size: 18px;
-    }
-
-    .patient-portal-app-header .header-subtitle {
-        font-size: 12px;
-    }
-
-    .patient-portal-app-footer {
-        padding: 12px 15px;
-    }
-
-    .patient-portal-app-footer .copyright,
-    .patient-portal-app-footer .footer-content {
-        font-size: 12px;
+@media (max-width: 1024px) {
+    .portal-sidebar {
+        width: 200px;
     }
 }
 
 @media (max-width: 768px) {
-    .patient-portal-page {
-        padding: 1rem;
-    }
-
-    .patient-portal-content {
-        padding: 1rem;
-    }
-
-    .portal-back-bar {
-        margin-bottom: 1rem;
-    }
-
-    .portal-back-btn {
-        padding: 8px 14px;
-        font-size: 0.85rem;
-    }
-
-    .patient-portal-container {
-        grid-template-columns: 1fr;
-        border-radius: 16px;
-    }
-
-    .portal-left-panel {
-        padding: 2.5rem;
-    }
-
-    .portal-right-panel {
-        padding: 3rem 2rem;
-        text-align: center;
-    }
-
-    .portal-actions {
+    .patient-portal-layout {
         flex-direction: column;
     }
 
-    .portal-features {
-        max-width: 300px;
-        margin: 0 auto;
+    .portal-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 1rem;
+    }
+
+    .portal-sidebar nav {
+        flex-direction: row;
+        justify-content: center;
+        overflow-x: auto;
+    }
+
+    .portal-sidebar button {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+
+    .patient-portal-content {
+        padding: 1.5rem;
     }
 }

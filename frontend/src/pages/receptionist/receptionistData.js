@@ -12,7 +12,67 @@ export const STORAGE_KEYS = {
   REGISTERED_PATIENTS: "swastik_recep_registered_patients",
   BEDS: "swastik_recep_beds",
   DOCTORS: "swastik_recep_doctors",
+  INVOICES: "swastik_recep_invoices",
 };
+
+export const HOSPITAL_PRICING = {
+  // Consultation & Registration
+  REGISTRATION: 500,
+  CASE_PAPER: 200,
+  OPD_CONSULTATION: 800,
+  SPECIALIST_CONSULTATION: 1500,
+  EMERGENCY_VISIT: 2500,
+
+  // IPD / Ward Charges (Per Day)
+  IPD_GENERAL_BED: 2000,
+  IPD_PRIVATE_ROOM: 5000,
+  IPD_OBSERVATION: 3000,
+  ICU_CHARGES: 12000,
+
+  // Laboratory Services
+  BLOOD_TEST_CBC: 450,
+  KIDNEY_PROFILE: 1200,
+  LIVER_FUNCTION_TEST: 1500,
+  URINE_ANALYSIS: 300,
+  COVID_RT_PCR: 800,
+
+  // Radiology & Imaging
+  X_RAY_CHEST: 600,
+  ULTRASOUND_ABDOMEN: 1800,
+  MRI_BRAIN: 8500,
+  CT_SCAN_WHOLE_BODY: 15000,
+
+  // Pharmacy & Consumables
+  MEDICATION_PACKAGE_BASIC: 2500,
+  SURGICAL_CONSUMABLES: 3500,
+  IV_FLUIDS_SET: 1200,
+
+  // Procedures
+  MINOR_STITCHING: 2000,
+  DRESSING_CHARGES: 500,
+  PHYSIOTHERAPY_SESSION: 1200,
+};
+
+export function getInvoices() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.INVOICES);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveInvoice(invoice) {
+  const existing = getInvoices();
+  localStorage.setItem(STORAGE_KEYS.INVOICES, JSON.stringify([...existing, invoice]));
+}
+
+export function generateInvoiceID() {
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  const random = Math.floor(1000 + Math.random() * 9000);
+  return `INV-${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${random}`;
+}
 
 const defaultAppointments = [
   { id: "apt1", patientName: "Patient A", doctor: "Dr. Sharma", date: new Date().toISOString().slice(0, 10), time: "09:00", status: "confirmed", type: "OPD" },

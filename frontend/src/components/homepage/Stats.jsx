@@ -1,24 +1,26 @@
+import React from "react";
 import "./Stats.css";
 
-const STATS = [
-  { value: "50K+", label: "Patients Treated" },
-  { value: "4.8★", label: "Overall Rating" },
-  { value: "NABH", label: "Accredited" },
+const stats = [
+  { label: "Happy Patients", value: "10,000+" },
+  { label: "Expert Doctors", value: "25+" },
+  { label: "Years Experience", value: "15+" },
+  { label: "Modern Rooms", value: "50+" },
 ];
 
-function Stats() {
+const Stats = () => {
   return (
-    <section className="home-stats">
-      <div className="home-stats__inner">
-        {STATS.map((stat, index) => (
-          <div key={index} className="home-stats__card">
-            <span className="home-stats__value">{stat.value}</span>
-            <span className="home-stats__label">{stat.label}</span>
+    <section className="stats-section">
+      <div className="stats__container">
+        {stats.map((stat, index) => (
+          <div key={index} className="stat-item">
+            <span className="stat-value">{stat.value}</span>
+            <span className="stat-label">{stat.label}</span>
           </div>
         ))}
       </div>
     </section>
   );
-}
+};
 
 export default Stats;

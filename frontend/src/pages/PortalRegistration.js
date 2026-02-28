@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PortalStyles.css';
 
-const PortalRegistration = () => {
+const PortalRegistration = ({ standalone = true }) => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         patientName: '',
@@ -11,9 +11,7 @@ const PortalRegistration = () => {
         password: '',
         dob: '',
         gender: '',
-        address: '',
-        city: '',
-        bloodGroup: ''
+        city: ''
     });
     const [idGenerated, setIdGenerated] = useState('');
 
@@ -27,45 +25,45 @@ const PortalRegistration = () => {
         e.preventDefault();
         const newId = generateID();
         const patientData = { ...formData, patientId: newId };
-
-        // Save to localStorage
         const existing = JSON.parse(localStorage.getItem('swastik_patients') || '[]');
         localStorage.setItem('swastik_patients', JSON.stringify([...existing, patientData]));
-
         setIdGenerated(newId);
     };
 
     if (idGenerated) {
         return (
-            <div className="portal-sub-page">
-                <div className="portal-success-alert">
-                    <h2>Registration Successful!</h2>
-                    <p>Please note down your Unique Patient ID for login:</p>
-                    <span className="portal-id-display">{idGenerated}</span>
+            <div className="portal-success-container">
+                <span className="portal-success-icon">🎉</span>
+                <h3>Registration Successful!</h3>
+                <p>Welcome to Swastik Hospital family. Your unique Patient ID is ready.</p>
+                <div className="portal-id-card">
+                    <span style={{ fontSize: '0.8rem', color: '#166534', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                        Unique Patient ID
+                    </span>
+                    <div className="portal-id-value">{idGenerated}</div>
+                    <p style={{ margin: '1rem 0 0', fontSize: '0.8rem', color: '#166534' }}>
+                        Please save this ID for all future logins.
+                    </p>
                 </div>
-                <div className="portal-btn-row">
-                    <button className="btn-portal btn-portal-login" onClick={() => navigate('/patient-portal/login')}>
-                        Go to Login
-                    </button>
-                </div>
+                <button
+                    className="portal-auth-btn"
+                    onClick={() => window.location.reload()} // Reset to login state in unified view
+                >
+                    Continue to Login &rarr;
+                </button>
             </div>
         );
     }
 
-    return (
-        <div className="portal-sub-page">
-            <div className="portal-header">
-                <h2>Patient Registration</h2>
-                <p>Fill in the details to create your secure patient account.</p>
-            </div>
-
-            <form className="portal-form" onSubmit={handleSubmit}>
+    const registrationForm = (
+        <form className="portal-form-unified" onSubmit={handleSubmit}>
+            <div className="portal-form-grid">
                 <div className="portal-form-group full-width">
                     <label>Full Patient Name *</label>
                     <input
                         type="text"
                         required
-                        placeholder="Enter full name"
+                        placeholder="e.g. John Doe"
                         value={formData.patientName}
                         onChange={(e) => setFormData({ ...formData, patientName: e.target.value })}
                     />
@@ -76,7 +74,7 @@ const PortalRegistration = () => {
                     <input
                         type="email"
                         required
-                        placeholder="email@example.com"
+                        placeholder="john@example.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
@@ -87,18 +85,18 @@ const PortalRegistration = () => {
                     <input
                         type="tel"
                         required
-                        placeholder="Phone number"
+                        placeholder="+91 XXXXX XXXXX"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     />
                 </div>
 
                 <div className="portal-form-group">
-                    <label>Password *</label>
+                    <label>Choose Password *</label>
                     <input
                         type="password"
                         required
-                        placeholder="Choose a password"
+                        placeholder="••••••••"
                         value={formData.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         autoComplete="new-password"
@@ -127,26 +125,29 @@ const PortalRegistration = () => {
                     </select>
                 </div>
 
-                <div className="portal-form-group full-width">
-                    <label>Address</label>
-                    <textarea
-                        placeholder="Residential address"
-                        value={formData.address}
-                        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    />
-                </div>
+            </div>
 
-                <div className="portal-btn-row">
-                    <button type="button" className="btn-portal btn-portal-register" onClick={() => navigate('/patient-portal')}>
-                        Cancel
-                    </button>
-                    <button type="submit" className="btn-portal btn-portal-login">
-                        Register & Generate ID
-                    </button>
-                </div>
-            </form>
-        </div>
+            <button type="submit" className="portal-auth-btn">
+                Register & Generate ID &rarr;
+            </button>
+        </form>
     );
+
+    if (standalone) {
+        return (
+            <div className="portal-auth-layout" style={{ background: '#f8fafc', justifyContent: 'center', alignItems: 'center', padding: '2rem' }}>
+                <div className="portal-auth-card" style={{ background: 'white', padding: '3rem', borderRadius: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '600px' }}>
+                    <div className="portal-auth-header" style={{ textAlign: 'center' }}>
+                        <h2>Create Patient Account</h2>
+                        <p>Join Swastik Hospital for better health management.</p>
+                    </div>
+                    {registrationForm}
+                </div>
+            </div>
+        );
+    }
+
+    return registrationForm;
 };
 
 export default PortalRegistration;

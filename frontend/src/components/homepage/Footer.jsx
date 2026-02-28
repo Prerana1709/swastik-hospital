@@ -1,35 +1,62 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
+import logo from "../../assets/swastiklogo.png";
 
-function HomeFooter() {
+const Footer = () => {
   return (
-    <footer className="home-footer">
-      <div className="home-footer__inner">
-        <div className="home-footer__top">
-          <div className="home-footer__links">
-            <Link to="/about">About</Link>
-            <Link to="/#services">Services</Link>
-            <Link to="/doctors">Doctors</Link>
-            <Link to="/contact">Contact</Link>
+    <footer className="main-footer">
+      <div className="footer__container">
+        <div className="footer__grid">
+          <div className="footer__brand">
+            <Link to="/" className="footer__logo">
+              <img src={logo} alt="Swastik Hospital" />
+              <span>Swastik Hospital</span>
+            </Link>
+            <p className="footer__description">
+              Dedicated to providing the highest quality psychiatric and mental health care with compassion and excellence.
+            </p>
+            <div className="footer__social">
+              <span className="footer__social-icon">FB</span>
+              <span className="footer__social-icon">TW</span>
+              <span className="footer__social-icon">IG</span>
+              <span className="footer__social-icon">LI</span>
+            </div>
           </div>
-          <div className="home-footer__contact">
-            <a href="tel:+911234567890">+91 123 456 7890</a>
-            <a href="mailto:info@swastikhospital.com">info@swastikhospital.com</a>
+
+          <div className="footer__links-group">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/#about">About Us</Link></li>
+              <li><Link to="/#services">Services</Link></li>
+              <li><Link to="/#doctors">Our Doctors</Link></li>
+            </ul>
           </div>
-          <div className="home-footer__social">
-            <a href="#" className="home-footer__social-link" aria-label="Facebook">FB</a>
-            <a href="#" className="home-footer__social-link" aria-label="Twitter">TW</a>
-            <a href="#" className="home-footer__social-link" aria-label="LinkedIn">IN</a>
+
+          <div className="footer__links-group">
+            <h3>Portals</h3>
+            <ul>
+              <li><Link to="/patient-portal">Patient Portal</Link></li>
+              <li><Link to="/login">Hospital Staff Login</Link></li>
+              <li><Link to="/patient-portal/appointments">Book Appointment</Link></li>
+            </ul>
+          </div>
+
+          <div className="footer__contact" id="contact">
+            <h3>Contact Us</h3>
+            <p><strong>Address:</strong> 123 Health Ave, Medical District, City</p>
+            <p><strong>Phone:</strong> +91 123 456 7890</p>
+            <p><strong>Email:</strong> info@swastikhospital.com</p>
           </div>
         </div>
-        <div className="home-footer__bottom">
-          <p className="home-footer__copy">
-            © {new Date().getFullYear()} Swastik Hospital. All rights reserved.
-          </p>
+
+        <div className="footer__bottom">
+          <p>© {new Date().getFullYear()} Swastik Hospital. All rights reserved. | Developed and managed by ORELSE Private Limited.</p>
         </div>
       </div>
     </footer>
   );
-}
+};
 
-export default HomeFooter;
+export default Footer;

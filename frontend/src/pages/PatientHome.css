@@ -1,353 +1,51 @@
-/* Patient Home – public landing. Theme: teal (#2f6f6c), white, soft blue. */
-
 .patient-home {
-  min-height: 100vh;
-  background: #f5f7fa;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
-}
-
-/* Navbar */
-.patient-home-nav {
-  background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 1px solid #e8eef0;
-}
-
-.patient-home-nav-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.patient-home-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: #2f6f6c;
-  font-weight: 700;
-  font-size: 1.25rem;
-}
-
-.patient-home-logo img {
-  height: 48px;
-  width: auto;
-  object-fit: contain;
-}
-
-.patient-home-nav-links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.patient-home-nav-links li button {
-  background: none;
-  border: none;
-  padding: 10px 16px;
-  font-size: 0.95rem;
-  color: #555;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: color 0.2s, background 0.2s;
-}
-
-.patient-home-nav-links li button:hover {
-  color: #2f6f6c;
-  background: #e8f4f3;
-}
-
-.patient-home-btn-login {
-  background: linear-gradient(135deg, #2f6f6c 0%, #3a8a87 100%) !important;
-  color: white !important;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(47, 111, 108, 0.25);
-}
-
-.patient-home-btn-login:hover {
-  background: linear-gradient(135deg, #286562 0%, #2f6f6c 100%) !important;
-  color: white !important;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(47, 111, 108, 0.3);
-}
-
-/* Hero */
-.patient-home-hero {
-  background: linear-gradient(160deg, #e8f4f8 0%, #f0f7fa 50%, #ffffff 100%);
-  padding: 80px 24px 100px;
-  text-align: center;
-}
-
-.patient-home-hero-content {
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.patient-home-hero h1 {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 700;
-  color: #2f6f6c;
-  margin-bottom: 16px;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-}
-
-.patient-home-hero-subtitle {
-  font-size: 1.15rem;
-  color: #555;
-  margin-bottom: 36px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #0f172a;
   line-height: 1.5;
+  background-color: white;
 }
 
-.patient-home-hero-btns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
+main {
+  position: relative;
 }
 
-.patient-home-btn {
-  padding: 14px 28px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: none;
+/* Base transitions and animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.patient-home-btn-primary {
-  background: linear-gradient(135deg, #2f6f6c 0%, #3a8a87 100%);
-  color: white;
-  box-shadow: 0 4px 14px rgba(47, 111, 108, 0.25);
+.patient-home section {
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
-.patient-home-btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(47, 111, 108, 0.35);
+/* Professional Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-.patient-home-btn-secondary {
-  background: white;
-  color: #2f6f6c;
-  border: 2px solid #2f6f6c;
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
 }
 
-.patient-home-btn-secondary:hover {
-  background: #e8f4f3;
-  transform: translateY(-2px);
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
 }
 
-/* Sections */
-.patient-home-section {
-  padding: 64px 24px;
-  max-width: 1200px;
-  margin: 0 auto;
+::-webkit-scrollbar-thumb:hover {
+  background: #0d9488;
 }
 
-.patient-home-section h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #2f6f6c;
-  margin-bottom: 12px;
-  text-align: center;
-}
-
-.patient-home-section-intro {
-  text-align: center;
-  color: #666;
-  margin-bottom: 40px;
-  max-width: 560px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Services cards */
-.patient-home-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-}
-
-.patient-home-card {
-  background: white;
-  border-radius: 16px;
-  padding: 28px 24px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  transition: transform 0.25s, box-shadow 0.25s;
-  border: 1px solid #e8eef0;
-}
-
-.patient-home-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(47, 111, 108, 0.12);
-}
-
-.patient-home-card h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2f6f6c;
-  margin-bottom: 10px;
-}
-
-.patient-home-card p {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* About */
-.patient-home-about {
-  background: white;
-  border-top: 1px solid #e8eef0;
-  border-bottom: 1px solid #e8eef0;
-}
-
-.patient-home-about-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 32px;
-  margin-top: 24px;
-}
-
-.patient-home-about-item {
-  text-align: center;
-  padding: 24px 20px;
-  border-radius: 16px;
-  background: #f8fbfc;
-  border: 1px solid #e8eef0;
-  transition: box-shadow 0.25s;
-}
-
-.patient-home-about-item:hover {
-  box-shadow: 0 6px 20px rgba(47, 111, 108, 0.1);
-}
-
-.patient-home-about-icon {
-  font-size: 2.5rem;
-  display: block;
-  margin-bottom: 12px;
-}
-
-.patient-home-about-item h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2f6f6c;
-  margin-bottom: 8px;
-}
-
-.patient-home-about-item p {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* Contact */
-.patient-home-contact-text {
-  text-align: center;
-  color: #666;
-  max-width: 560px;
-  margin: 0 auto;
-}
-
-/* CTA */
-.patient-home-cta {
-  padding: 64px 24px;
-  text-align: center;
-  background: linear-gradient(160deg, #e8f4f8 0%, #f0f7fa 100%);
-}
-
-.patient-home-cta-btn {
-  padding: 18px 40px;
-  font-size: 1.15rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #2f6f6c 0%, #3a8a87 100%);
-  color: white;
-  border: none;
-  border-radius: 16px;
-  cursor: pointer;
-  box-shadow: 0 6px 20px rgba(47, 111, 108, 0.3);
-  transition: transform 0.25s, box-shadow 0.25s;
-}
-
-.patient-home-cta-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 28px rgba(47, 111, 108, 0.4);
-}
-
-/* Footer – same style as patient portal / clinical section */
-.patient-home-footer {
-  background: #f5f7fa;
-  border-top: 1px solid #e0e0e0;
-  padding: 16px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.patient-home-footer-content {
-  margin: 0 auto;
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.patient-home-footer-copyright {
-  margin: 0;
-  font-size: 13px;
-  color: #666;
-  font-weight: 700;
-  line-height: 1.5;
-  text-align: center;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
-  .patient-home-nav-inner {
-    flex-direction: column;
-    height: auto;
-    padding: 16px;
-    gap: 16px;
-  }
-
-  .patient-home-nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .patient-home-hero {
-    padding: 48px 20px 64px;
-  }
-
-  .patient-home-section {
-    padding: 48px 20px;
-  }
-
-  .patient-home-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .patient-home-footer {
-    padding: 12px 15px;
-  }
-
-  .patient-home-footer-copyright {
-    font-size: 12px;
+  .patient-home {
+    overflow-x: hidden;
   }
 }
