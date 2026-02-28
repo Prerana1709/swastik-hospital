@@ -4,6 +4,7 @@ export const STAFF_CREDENTIALS = [
   { username: "doctor", password: "doctor123", role: "doctor" },
   { username: "lab", password: "lab123", role: "lab" },
   { username: "admin", password: "admin123", role: "admin" },
+  { username: "bill", password: "bill123", role: "billing" },
 ];
 
 export function validateStaff(username, password) {
@@ -30,6 +31,6 @@ export function clearStaffSession() {
 }
 
 export function canAccessSection(role, section) {
-  const allowed = { receptionist: "receptionist", doctor: "doctor", lab: "lab", admin: "admin" };
+  const allowed = { receptionist: "receptionist", doctor: "doctor", lab: "lab", admin: "admin", billing: "billing" };
   return allowed[role] === section;
 }

@@ -1,0 +1,92 @@
+.billing-login-page {
+  min-height: 100vh;
+  background: #f0f4f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.billing-login-card {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(47, 111, 108, 0.1);
+  padding: 40px;
+  border: 1px solid #e2e8e6;
+}
+
+.billing-login-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a5f5c;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.billing-login-subtitle {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.billing-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.billing-login-field label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.billing-login-field input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.billing-login-field input:focus {
+  outline: none;
+  border-color: #2f6f6c;
+  box-shadow: 0 0 0 3px rgba(47, 111, 108, 0.15);
+}
+
+.billing-login-error {
+  color: #b91c1c;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.billing-login-btn {
+  background: #2f6f6c;
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.billing-login-btn:hover {
+  background: #1a5f5c;
+}
+
+.billing-login-footer {
+  margin-top: 24px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-align: center;
+}

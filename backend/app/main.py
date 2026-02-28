@@ -1,8 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from app.config.database import connect_to_mongo, close_mongo
 from app.controllers.auth_controller import ensure_default_user
 from app.routes import auth_routes, registration_routes, report_routes, patient_record_routes, admin_routes, lab_routes, clinical_routes, billing_routes
+from app.ws.billing_ws import register, unregister
 
 app = FastAPI(title="Swastik Hospital API", version="1.0.0")
 
@@ -39,3 +40,15 @@ app.include_router(admin_routes.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(lab_routes.router, prefix="/api/lab", tags=["Lab"])
 app.include_router(clinical_routes.router, prefix="/api/clinical", tags=["Clinical"])
 app.include_router(billing_routes.router)
+
+
+@app.websocket("/ws/billing")
+async def ws_billing(websocket: WebSocket):
+    await register(websocket)
+    try:
+        while True:
+            await websocket.receive_text()
+    except Exception:
+        pass
+    finally:
+        unregister(websocket)

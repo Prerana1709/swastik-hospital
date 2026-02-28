@@ -203,4 +203,31 @@ export const api = {
   async getBillingStats() {
     return request("/api/billing/stats");
   },
+
+  // Billing – bills and payments
+  async createBill(body) {
+    return request("/api/bills", {
+      method: "POST",
+      body: JSON.stringify(body),
+    });
+  },
+
+  async getBills(skip = 0, limit = 100) {
+    return request(`/api/bills?skip=${skip}&limit=${limit}`);
+  },
+
+  async getBill(billId) {
+    return request(`/api/bills/${encodeURIComponent(billId)}`);
+  },
+
+  async getBillsByPatient(patientId) {
+    return request(`/api/bills/patient/${encodeURIComponent(patientId)}`);
+  },
+
+  async addBillPayment(billId, data) {
+    return request(`/api/bills/${encodeURIComponent(billId)}/payment`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  },
 };

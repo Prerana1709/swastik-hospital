@@ -14,6 +14,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import StaffSection from "./pages/StaffSection";
 import Billing from "./pages/Billing";
+import BillingGate from "./pages/billing/BillingGate";
 import PlaceholderPage from "./pages/PlaceholderPage";
 
 import ReceptionistLayout from "./pages/receptionist/ReceptionistLayout";
@@ -47,6 +48,8 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Route>
 
+        <Route path="/billing" element={<BillingGate />} />
+
         <Route path="/registration" element={<RegistrationLayout />}>
           <Route index element={<Register />} />
           <Route path="patient" element={<PlaceholderPage />} />
@@ -78,7 +81,6 @@ function App() {
           <Route path="/admin/*" element={<PlaceholderPage />} />
           <Route path="/patient-documents/*" element={<PlaceholderPage />} />
           <Route path="/appointments/*" element={<PlaceholderPage />} />
-          <Route path="/billing" element={<Billing />} />
           <Route path="/analytics" element={<PlaceholderPage />} />
         </Route>
       </Routes>
