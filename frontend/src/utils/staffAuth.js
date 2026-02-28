@@ -34,3 +34,9 @@ export function canAccessSection(role, section) {
   const allowed = { receptionist: "receptionist", doctor: "doctor", lab: "lab", admin: "admin", billing: "billing" };
   return allowed[role] === section;
 }
+
+export function isStaffSessionValid() {
+  // Simple mocked check: token exists and isn't expired
+  const token = typeof localStorage !== "undefined" ? localStorage.getItem("swastik_token") : null;
+  return !!token;
+}

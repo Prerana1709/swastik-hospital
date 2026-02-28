@@ -20,6 +20,9 @@ class CreateBillRequest(BaseModel):
     tax: float = 0
     discount: float = 0
     total: float = 0
+    insurance_covered: float = 0
+    patient_payable: float = 0
+    due_amount: float = 0
     items: List[Any] = []
     created_by: str = ""
 

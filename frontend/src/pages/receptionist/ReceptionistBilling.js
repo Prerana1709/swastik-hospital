@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FiCreditCard, FiSearch, FiPlus, FiFileText, FiPrinter, FiUser, FiCalendar, FiCheckCircle, FiXCircle, FiPackage, FiActivity, FiLayers, FiThermometer } from 'react-icons/fi';
+import { FiCreditCard, FiSearch, FiPlus, FiFileText, FiPrinter, FiUser, FiXCircle } from 'react-icons/fi';
 import { STORAGE_KEYS, getInvoices, saveInvoice, HOSPITAL_PRICING, generateInvoiceID } from "./receptionistData";
 import BillingReceipt from "./BillingReceipt";
 import swastikLogo from "../../assets/swastiklogo.png";

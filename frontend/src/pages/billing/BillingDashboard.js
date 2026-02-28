@@ -51,14 +51,14 @@ function BillingDashboard() {
   // WebSocket: real-time billing updates
   useEffect(() => {
     const ws = new WebSocket(`${WS_BASE}/ws/billing`);
-    ws.onopen = () => {};
+    ws.onopen = () => { };
     ws.onmessage = (ev) => {
       try {
         const { event } = JSON.parse(ev.data || "{}");
         if (event === "bill_created" || event === "payment_updated") setSavedBill((b) => (b ? { ...b, _refreshed: Date.now() } : null));
-      } catch {}
+      } catch { }
     };
-    ws.onerror = () => {};
+    ws.onerror = () => { };
     wsRef.current = ws;
     return () => {
       if (ws.readyState === WebSocket.OPEN) ws.close();
@@ -120,6 +120,9 @@ function BillingDashboard() {
       subtotal,
       tax: totalTax,
       discount: discount || 0,
+      insurance_covered: insuranceCovered || 0,
+      patient_payable: patientPayable || 0,
+      due_amount: dueAmount || 0,
       total: grandTotal,
       items: itemsForApi,
       created_by: createdBy,
@@ -132,10 +135,11 @@ function BillingDashboard() {
           bill = await api.addBillPayment(bill.id, {
             amount: insuranceCovered,
             method: "Insurance",
-            transaction_reference: paymentNotes || "",
+            transaction_reference: paymentNotes || `INS-${patientPayable}`,
             created_by: createdBy,
           });
         }
+
         if ((paidAmount || 0) > 0) {
           bill = await api.addBillPayment(bill.id, {
             amount: paidAmount,
@@ -321,19 +325,55 @@ function BillingDashboard() {
 
         {/* 4. Payment */}
         <section className="billing-card">
-          <h2>Payment</h2>
+          <h2>Payment Processing</h2>
           <div className="billing-form-row">
             <label>Payment Method</label>
-            <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+            <select value={paymentMethod} onChange={(e) => {
+              setPaymentMethod(e.target.value);
+              // Auto-generate a dummy UPI ref if UPI selected, else clear
+              if (e.target.value === "UPI") setPaymentNotes(`UPI-${Math.random().toString(36).slice(2, 10).toUpperCase()}`);
+              else setPaymentNotes("");
+            }}>
               {PAYMENT_METHODS.map((m) => <option key={m} value={m}>{m}</option>)}
             </select>
           </div>
-          <div className="billing-form-row">
-            <label>Payment Notes</label>
-            <input type="text" value={paymentNotes} onChange={(e) => setPaymentNotes(e.target.value)} placeholder="Notes" />
-          </div>
+
+          {paymentMethod === "UPI" && (
+            <div className="billing-upi-box" style={{ background: "#f8fafc", padding: "16px", borderRadius: "8px", marginBottom: "16px", border: "1px solid #e2e8f0", display: "flex", gap: "16px", alignItems: "center" }}>
+              <div style={{ width: "100px", height: "100px", background: "#fff", border: "2px dashed #cbd5e1", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px" }}>
+                <span style={{ fontSize: "0.75rem", color: "#64748b", fontWeight: "bold" }}>MOCK QR</span>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h4 style={{ margin: "0 0 8px 0", color: "#1e293b" }}>Scan via any UPI App</h4>
+                <p style={{ margin: "0 0 4px 0", fontSize: "0.85rem", color: "#475569" }}><strong>UPI ID:</strong> billing.swastik@bank</p>
+                <p style={{ margin: "0", fontSize: "0.85rem", color: "#475569" }}><strong>Amount to Pay:</strong> ₹{(paymentMethod === "Insurance" ? patientPayable : dueAmount).toFixed(2)}</p>
+              </div>
+            </div>
+          )}
+
+          {["UPI", "Card", "Insurance"].includes(paymentMethod) && (
+            <div className="billing-form-row">
+              <label>Transaction / Claim Reference <span style={{ color: "red" }}>*</span></label>
+              <input type="text" value={paymentNotes} onChange={(e) => setPaymentNotes(e.target.value)} placeholder="Enter mandatory reference ID..." />
+            </div>
+          )}
+
+          {paymentMethod === "Cash" && (
+            <div className="billing-form-row">
+              <label>Receipt Notes (Optional)</label>
+              <input type="text" value={paymentNotes} onChange={(e) => setPaymentNotes(e.target.value)} placeholder="Notes" />
+            </div>
+          )}
+
           {apiError && <p className="billing-error">{apiError}</p>}
-          <button type="button" className="billing-btn billing-btn-primary" onClick={handleMarkPaid}>Mark as Paid</button>
+          <button
+            type="button"
+            className="billing-btn billing-btn-primary"
+            onClick={handleMarkPaid}
+            disabled={["UPI", "Card", "Insurance"].includes(paymentMethod) && !paymentNotes.trim()}
+          >
+            Process Payment
+          </button>
         </section>
 
         {/* 5. Invoice */}

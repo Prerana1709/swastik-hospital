@@ -9,13 +9,14 @@ COUNTERS_COLLECTION = "counters"
 AUDIT_COLLECTION = "billing_audit"
 
 
-async def _audit(action: str, bill_id: str = None, user_id: str = "", details: dict = None):
-    """Append-only audit log for billing (no diagnosis, financial only)."""
+async def _audit(action: str, bill_id: str = None, user_id: str = "", details: dict = None, ip_address: str = "unknown"):
+    """Append-only audit log for billing (no diagnosis, financial only) with IP trace."""
     db = get_db()
     await db[AUDIT_COLLECTION].insert_one({
         "action": action,
         "bill_id": bill_id,
         "user_id": user_id,
+        "ip_address": ip_address,
         "timestamp": datetime.utcnow().isoformat(),
         "details": details or {},
     })
@@ -98,6 +99,7 @@ async def create_bill(data: dict):
     """Create bill. Audit: no diagnosis, financial only."""
     db = get_db()
     invoice_number = await _next_invoice_number()
+    client_ip = data.get("ip_address", "unknown")
     doc = {
         "invoice_number": invoice_number,
         "patient_id": data.get("patient_id"),
@@ -107,6 +109,9 @@ async def create_bill(data: dict):
         "subtotal": float(data.get("subtotal", 0)),
         "tax": float(data.get("tax", 0)),
         "discount": float(data.get("discount", 0)),
+        "insurance_covered": float(data.get("insurance_covered", 0)),
+        "patient_payable": float(data.get("patient_payable", 0)),
+        "due_amount": float(data.get("due_amount", 0)),
         "total": float(data.get("total", 0)),
         "status": "Pending",
         "items": data.get("items", []),
@@ -116,7 +121,7 @@ async def create_bill(data: dict):
     }
     result = await db[BILLS_COLLECTION].insert_one(doc)
     doc["id"] = str(result.inserted_id)
-    await _audit("bill_created", bill_id=doc["id"], user_id=doc.get("created_by", ""), details={"invoice_number": doc["invoice_number"]})
+    await _audit("bill_created", bill_id=doc["id"], user_id=doc.get("created_by", ""), details={"invoice_number": doc["invoice_number"]}, ip_address=client_ip)
     await broadcast("bill_created", {"bill_id": doc["id"], "invoice_number": doc["invoice_number"]})
     return doc
 
@@ -140,8 +145,8 @@ async def get_bill_by_id(bill_id: str):
     return doc
 
 
-async def add_payment(bill_id: str, amount: float, method: str, transaction_reference: str = "", user_id: str = ""):
-    """Add payment. Audit: log user and time."""
+async def add_payment(bill_id: str, amount: float, method: str, transaction_reference: str = "", user_id: str = "", ip_address: str = "unknown"):
+    """Add payment. Audit: log user, IP, and time."""
     db = get_db()
     payment = {
         "amount": float(amount),
@@ -149,20 +154,30 @@ async def add_payment(bill_id: str, amount: float, method: str, transaction_refe
         "transaction_reference": transaction_reference,
         "payment_date": datetime.utcnow().isoformat(),
         "created_by": user_id,
+        "ip_address": ip_address,
     }
     bill = await db[BILLS_COLLECTION].find_one({"_id": ObjectId(bill_id)})
     if not bill:
         return None
     total_paid = sum(p.get("amount", 0) for p in bill.get("payments", [])) + float(amount)
     new_payments = bill.get("payments", []) + [payment]
-    status = "Paid" if total_paid >= bill.get("total", 0) else "Partial"
+    
+    # Calculate Due
+    insurance_covered = float(bill.get("insurance_covered", 0))
+    grand_total = float(bill.get("total", 0))
+    patient_payable = grand_total - insurance_covered
+    
+    status = "Paid" if total_paid >= patient_payable else "Partial"
+    due_amount = max(0, patient_payable - total_paid)
+    
     await db[BILLS_COLLECTION].update_one(
         {"_id": ObjectId(bill_id)},
-        {"$set": {"payments": new_payments, "status": status}}
+        {"$set": {"payments": new_payments, "status": status, "due_amount": due_amount}}
     )
-    await _audit("payment_entry", bill_id=bill_id, user_id=user_id, details={"amount": amount, "method": method, "status": status})
+    await _audit("payment_entry", bill_id=bill_id, user_id=user_id, details={"amount": amount, "method": method, "status": status, "transaction_ref": transaction_reference}, ip_address=ip_address)
+    
     updated = await get_bill_by_id(bill_id)
-    await broadcast("payment_updated", {"bill_id": bill_id, "status": status})
+    await broadcast("payment_updated", {"bill_id": bill_id, "status": status, "due_amount": due_amount})
     return updated
 
 
