@@ -8,7 +8,7 @@ const SECTIONS = [
   { id: "doctor", label: "Doctor", path: "/doctor", description: "Clinical & patient care", allowedRoles: ["doctor"] },
   { id: "lab", label: "Lab", path: "/lab", description: "Lab tests & results", allowedRoles: ["lab"] },
   { id: "admin", label: "Admin", path: "/admin", description: "System & user management", allowedRoles: ["admin"] },
-  { id: "billing", label: "Billing", path: "/billing", description: "Bills & payments", allowedRoles: ["doctor", "receptionist"] },
+  { id: "billing", label: "Billing", path: "/billing", description: "Bills & payments", allowedRoles: ["billing"] },
 ];
 
 function Dashboard() {

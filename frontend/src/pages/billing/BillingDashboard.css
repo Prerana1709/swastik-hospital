@@ -1,0 +1,259 @@
+/* Billing Dashboard – teal + white, 16px rounded, professional */
+.billing-dash {
+  min-height: 100vh;
+  background: #f0f4f3;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.billing-dash-header {
+  background: #fff;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid #e2e8e6;
+}
+
+.billing-dash-header h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a5f5c;
+  margin: 0;
+}
+
+.billing-dash-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.billing-dash-role {
+  font-size: 0.9rem;
+  color: #64748b;
+  text-transform: capitalize;
+}
+
+.billing-dash-logout {
+  background: #2f6f6c;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.billing-dash-logout:hover {
+  background: #1a5f5c;
+}
+
+.billing-dash-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.billing-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(47, 111, 108, 0.08);
+  border: 1px solid #e2e8e6;
+}
+
+.billing-card h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 0 0 20px;
+}
+
+.billing-search-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.billing-search-row input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.billing-dropdown {
+  border: 1px solid #e2e8e6;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.billing-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  text-align: left;
+  background: #fff;
+  border: none;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.billing-dropdown-item:hover {
+  background: #e8f2f1;
+}
+
+.billing-patient-info {
+  padding: 16px;
+  background: #f8faf9;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #334155;
+}
+
+.billing-patient-info p { margin: 0 0 8px; }
+
+.billing-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.billing-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.billing-table th,
+.billing-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e2e8e6;
+  text-align: left;
+}
+
+.billing-table th {
+  background: #f8faf9;
+  font-weight: 600;
+  color: #475569;
+}
+
+.billing-table input[type="text"],
+.billing-table input[type="number"],
+.billing-table select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e2e8e6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.billing-num { font-weight: 600; color: #1a5f5c; }
+
+.billing-totals .billing-summary-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+}
+
+.billing-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.billing-summary-row input {
+  width: 120px;
+  padding: 8px 10px;
+  border: 1px solid #e2e8e6;
+  border-radius: 6px;
+}
+
+.billing-summary-row.total,
+.billing-summary-row.due {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #1a5f5c;
+  padding-top: 8px;
+  border-top: 2px solid #e2e8e6;
+}
+
+.billing-form-row {
+  margin-bottom: 16px;
+}
+
+.billing-form-row label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.billing-form-row input,
+.billing-form-row select {
+  width: 100%;
+  max-width: 320px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.billing-btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.billing-btn-primary {
+  background: #2f6f6c;
+  color: #fff;
+}
+
+.billing-btn-primary:hover { background: #1a5f5c; }
+
+.billing-btn-secondary {
+  background: #e2e8e6;
+  color: #334155;
+}
+
+.billing-btn-secondary:hover { background: #cbd5e1; }
+
+.billing-error {
+  color: #b91c1c;
+  font-size: 0.9rem;
+  margin: 8px 0;
+}
+
+.billing-btn-danger-sm {
+  background: #fecaca;
+  color: #b91c1c;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.billing-invoice-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.billing-disclaimer {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .billing-dash-main { padding: 16px; }
+  .billing-table th, .billing-table td { padding: 8px; font-size: 0.85rem; }
+}

@@ -1,6 +1,40 @@
 from app.config.database import get_db
+from app.ws.billing_ws import broadcast
 import random
 from datetime import datetime
+from bson import ObjectId
+
+BILLS_COLLECTION = "bills"
+COUNTERS_COLLECTION = "counters"
+AUDIT_COLLECTION = "billing_audit"
+
+
+async def _audit(action: str, bill_id: str = None, user_id: str = "", details: dict = None):
+    """Append-only audit log for billing (no diagnosis, financial only)."""
+    db = get_db()
+    await db[AUDIT_COLLECTION].insert_one({
+        "action": action,
+        "bill_id": bill_id,
+        "user_id": user_id,
+        "timestamp": datetime.utcnow().isoformat(),
+        "details": details or {},
+    })
+
+
+async def _next_invoice_number():
+    """Generate SWH-YYYYMMDD-XXXX unique per day."""
+    db = get_db()
+    date_str = datetime.utcnow().strftime("%Y%m%d")
+    key = f"invoice_{date_str}"
+    doc = await db[COUNTERS_COLLECTION].find_one({"_id": key})
+    if not doc:
+        await db[COUNTERS_COLLECTION].insert_one({"_id": key, "seq": 1})
+        seq = 1
+    else:
+        seq = doc.get("seq", 0) + 1
+        await db[COUNTERS_COLLECTION].update_one({"_id": key}, {"$set": {"seq": seq}})
+    return f"SWH-{date_str}-{seq:04d}"
+
 
 async def get_billing_stats():
     db = get_db()
@@ -58,3 +92,85 @@ async def get_billing_stats():
             {"title": "OPD Share", "value": f"{int((opd_revenue/total_revenue*100)) if total_revenue > 0 else 0}%", "accent": "4"}
         ]
     }
+
+
+async def create_bill(data: dict):
+    """Create bill. Audit: no diagnosis, financial only."""
+    db = get_db()
+    invoice_number = await _next_invoice_number()
+    doc = {
+        "invoice_number": invoice_number,
+        "patient_id": data.get("patient_id"),
+        "uhid": data.get("uhid"),
+        "visit_id": data.get("visit_id"),
+        "admission_id": data.get("admission_id"),
+        "subtotal": float(data.get("subtotal", 0)),
+        "tax": float(data.get("tax", 0)),
+        "discount": float(data.get("discount", 0)),
+        "total": float(data.get("total", 0)),
+        "status": "Pending",
+        "items": data.get("items", []),
+        "payments": [],
+        "created_at": datetime.utcnow().isoformat(),
+        "created_by": data.get("created_by", ""),
+    }
+    result = await db[BILLS_COLLECTION].insert_one(doc)
+    doc["id"] = str(result.inserted_id)
+    await _audit("bill_created", bill_id=doc["id"], user_id=doc.get("created_by", ""), details={"invoice_number": doc["invoice_number"]})
+    await broadcast("bill_created", {"bill_id": doc["id"], "invoice_number": doc["invoice_number"]})
+    return doc
+
+
+async def get_bills(skip: int = 0, limit: int = 100):
+    db = get_db()
+    cursor = db[BILLS_COLLECTION].find().sort("created_at", -1).skip(skip).limit(limit)
+    bills = []
+    async for doc in cursor:
+        doc["id"] = str(doc["_id"])
+        bills.append(doc)
+    return bills
+
+
+async def get_bill_by_id(bill_id: str):
+    db = get_db()
+    doc = await db[BILLS_COLLECTION].find_one({"_id": ObjectId(bill_id)})
+    if not doc:
+        return None
+    doc["id"] = str(doc["_id"])
+    return doc
+
+
+async def add_payment(bill_id: str, amount: float, method: str, transaction_reference: str = "", user_id: str = ""):
+    """Add payment. Audit: log user and time."""
+    db = get_db()
+    payment = {
+        "amount": float(amount),
+        "method": method,
+        "transaction_reference": transaction_reference,
+        "payment_date": datetime.utcnow().isoformat(),
+        "created_by": user_id,
+    }
+    bill = await db[BILLS_COLLECTION].find_one({"_id": ObjectId(bill_id)})
+    if not bill:
+        return None
+    total_paid = sum(p.get("amount", 0) for p in bill.get("payments", [])) + float(amount)
+    new_payments = bill.get("payments", []) + [payment]
+    status = "Paid" if total_paid >= bill.get("total", 0) else "Partial"
+    await db[BILLS_COLLECTION].update_one(
+        {"_id": ObjectId(bill_id)},
+        {"$set": {"payments": new_payments, "status": status}}
+    )
+    await _audit("payment_entry", bill_id=bill_id, user_id=user_id, details={"amount": amount, "method": method, "status": status})
+    updated = await get_bill_by_id(bill_id)
+    await broadcast("payment_updated", {"bill_id": bill_id, "status": status})
+    return updated
+
+
+async def get_bills_by_patient(patient_id: str):
+    db = get_db()
+    cursor = db[BILLS_COLLECTION].find({"$or": [{"patient_id": patient_id}, {"uhid": patient_id}]}).sort("created_at", -1)
+    bills = []
+    async for doc in cursor:
+        doc["id"] = str(doc["_id"])
+        bills.append(doc)
+    return bills
