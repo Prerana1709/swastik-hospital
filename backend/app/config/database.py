@@ -1,8 +1,9 @@
 """MongoDB connection using Motor (async)."""
+import os
+import certifi
+from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import ConnectionFailure
-import os
-from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -18,7 +19,8 @@ db = None
 
 async def connect_to_mongo():
     global client, db
-    client = AsyncIOMotorClient(MONGO_URI)
+    # Use certifi CA bundle to avoid SSL handshake errors with MongoDB Atlas (common on Windows)
+    client = AsyncIOMotorClient(MONGO_URI, tlsCAFile=certifi.where())
     db = client[DB_NAME]
     try:
         await client.admin.command("ping")
