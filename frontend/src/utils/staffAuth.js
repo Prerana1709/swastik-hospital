@@ -31,8 +31,14 @@ export function clearStaffSession() {
 }
 
 export function canAccessSection(role, section) {
-  const allowed = { receptionist: "receptionist", doctor: "doctor", lab: "lab", admin: "admin", billing: "billing" };
-  return allowed[role] === section;
+  const allowed = {
+    receptionist: ["receptionist", "billing"],
+    doctor: ["doctor"],
+    lab: ["lab"],
+    admin: ["admin"],
+    billing: ["billing"]
+  };
+  return allowed[role] && allowed[role].includes(section);
 }
 
 export function isStaffSessionValid() {

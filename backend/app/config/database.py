@@ -20,7 +20,7 @@ db = None
 async def connect_to_mongo():
     global client, db
     # Use certifi CA bundle to avoid SSL handshake errors with MongoDB Atlas (common on Windows)
-    client = AsyncIOMotorClient(MONGO_URI, tlsCAFile=certifi.where())
+    client = AsyncIOMotorClient(MONGO_URI, tlsCAFile=certifi.where(), tlsAllowInvalidCertificates=True)
     db = client[DB_NAME]
     try:
         await client.admin.command("ping")

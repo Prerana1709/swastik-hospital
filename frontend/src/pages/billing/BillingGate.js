@@ -1,13 +1,13 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { getStaffRole, isStaffSessionValid } from "../../utils/staffAuth";
+import { getStaffRole, isStaffSessionValid, canAccessSection } from "../../utils/staffAuth";
 import BillingLogin from "./BillingLogin";
 import BillingDashboard from "./BillingDashboard";
 
 /**
  * STRICT Billing Route Gate
  * 1. Checks if session is valid.
- * 2. Checks if role is "billing".
+ * 2. Checks if role is authorized for billing.
  * 3. Handles redirection appropriately.
  */
 function BillingGate() {
@@ -22,8 +22,8 @@ function BillingGate() {
   }
 
   // Strict role check for billing module
-  if (role !== "billing") {
-    // If they came here from elsewhere and are logged in but not billing staff, send them to dashboard
+  if (!canAccessSection(role, "billing")) {
+    // If they came here from elsewhere and are logged in but not authorized, send them to dashboard
     return <Navigate to="/dashboard" state={{ from: location }} replace />;
   }
 
